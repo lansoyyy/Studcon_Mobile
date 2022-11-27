@@ -1,3 +1,4 @@
+import 'package:consultation_system_mobile/screens/history_page.dart';
 import 'package:consultation_system_mobile/screens/home_screen.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
@@ -47,7 +48,7 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const HomeScreen()));
               },
             ),
@@ -59,7 +60,7 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const HomeScreen()));
               },
             ),
@@ -71,8 +72,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const HomeScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const HistoryPage()));
               },
             ),
             ListTile(
