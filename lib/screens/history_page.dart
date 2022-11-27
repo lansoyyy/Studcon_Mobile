@@ -17,11 +17,15 @@ class HistoryPage extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
           child: ListTile(
-            subtitle:
-                TextRegular(text: '8:4pm', fontSize: 10, color: Colors.grey),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            subtitle: TextRegular(
+                text: 'Concern: Grades', fontSize: 10, color: Colors.grey),
             title: TextRegular(
                 text: 'Lorem Ipsum', fontSize: 12, color: Colors.black),
-            trailing: const Icon(Icons.arrow_right),
+            trailing:
+                TextRegular(text: '8:4pm', fontSize: 12, color: Colors.grey),
             tileColor: Colors.white,
             leading: const Padding(
               padding: EdgeInsets.all(5.0),

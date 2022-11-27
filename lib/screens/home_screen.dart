@@ -56,6 +56,9 @@ class HomeScreen extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                     child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => MessageScreen()));
