@@ -1,3 +1,4 @@
+import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class ButtonWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       minWidth: 250,
-      color: Colors.black,
+      color: primary,
       onPressed: onPressed,
       child: TextBold(text: text, fontSize: 18, color: Colors.white),
     );

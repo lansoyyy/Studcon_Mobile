@@ -1,3 +1,4 @@
+import 'package:consultation_system_mobile/screens/feedback_page.dart';
 import 'package:consultation_system_mobile/screens/history_page.dart';
 import 'package:consultation_system_mobile/screens/home_screen.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
@@ -60,8 +61,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const HomeScreen()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => FeedbackPage()));
               },
             ),
             ListTile(
