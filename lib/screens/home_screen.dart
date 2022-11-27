@@ -1,3 +1,4 @@
+import 'package:consultation_system_mobile/screens/message_screen/message_screen.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/appbar_widget.dart';
 import 'package:consultation_system_mobile/widgets/drawer_widget.dart';
@@ -46,6 +47,10 @@ class HomeScreen extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                     child: ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const MessageScreen()));
+                      },
                       subtitle: TextRegular(
                           text: '8:4pm', fontSize: 10, color: Colors.grey),
                       title: TextRegular(
