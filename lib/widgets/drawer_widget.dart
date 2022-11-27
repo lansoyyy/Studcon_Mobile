@@ -1,3 +1,5 @@
+import 'package:consultation_system_mobile/screens/home_screen.dart';
+import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -19,13 +21,13 @@ class _MyDrawerState extends State<DrawerWidget> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               decoration: const BoxDecoration(
-                color: Colors.black,
+                color: primary,
               ),
               accountEmail: TextRegular(
-                  text: 'Lance Olana', fontSize: 0, color: Colors.white),
+                  text: 'olana@gmail.com', fontSize: 10, color: Colors.white),
               accountName: TextBold(
-                text: 'olana@gmail.com',
-                fontSize: 18,
+                text: 'Lance Olana',
+                fontSize: 14,
                 color: Colors.white,
               ),
               currentAccountPicture: const Padding(
@@ -38,95 +40,47 @@ class _MyDrawerState extends State<DrawerWidget> {
               ),
             ),
             ListTile(
+              leading: const Icon(Icons.message),
               title: TextBold(
-                text: 'Chat Room',
+                text: 'Messages',
                 fontSize: 12,
-                color: Colors.black,
+                color: Colors.grey,
               ),
               onTap: () {
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const HomeScreen()));
               },
             ),
-            // ),
-            // ListTile(
-            //   trailing: IconButton(
-            //     onPressed: () {
-            //       Navigator.of(context).pushReplacement(MaterialPageRoute(
-            //           builder: (context) => AddProductPage()));
-            //     },
-            //     icon: const Icon(Icons.add),
-            //   ),
-            //   title: TextBold(
-            //     text: 'Products',
-            //     fontSize: 12,
-            //     color: Colors.black,
-            //   ),
-            //   onTap: () {
-            //     Navigator.of(context).pushReplacement(
-            //         MaterialPageRoute(builder: (context) => CrewHome()));
-            //   },
-            // ),
-            // ListTile(
-            //   title: TextBold(
-            //     text: 'Logbook',
-            //     fontSize: 12,
-            //     color: Colors.black,
-            //   ),
-            //   onTap: () {
-            //     Navigator.of(context).pushReplacement(
-            //         MaterialPageRoute(builder: (context) => LogbookPage()));
-            //   },
-            // ),
-            // ListTile(
-            //   title: TextBold(
-            //     text: 'Inventory',
-            //     fontSize: 12,
-            //     color: Colors.black,
-            //   ),
-            //   onTap: () {
-            //     Navigator.of(context).pushReplacement(
-            //         MaterialPageRoute(builder: (context) => InventoryPage()));
-            //   },
-            // ),
-            // ListTile(
-            //   title: TextBold(
-            //     text: 'Sales History',
-            //     fontSize: 12,
-            //     color: Colors.black,
-            //   ),
-            //   onTap: () {
-            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
-            //         builder: (context) => SalesHistoryPage()));
-            //   },
-            // ),
-            // ListTile(
-            //   title: TextBold(
-            //     text: 'Waste Reports',
-            //     fontSize: 12,
-            //     color: Colors.black,
-            //   ),
-            //   onTap: () {
-            //     Navigator.of(context).pushReplacement(
-            //         MaterialPageRoute(builder: (context) => WasteReportPage()));
-            //   },
-            // ),
-            // ListTile(
-            //   title: TextBold(
-            //     text: 'Expenses',
-            //     fontSize: 12,
-            //     color: Colors.black,
-            //   ),
-            //   onTap: () {
-            //     Navigator.of(context).pushReplacement(
-            //         MaterialPageRoute(builder: (context) => ExensesPage()));
-            //   },
-            // ),
             ListTile(
+              leading: const Icon(Icons.feedback_outlined),
+              title: TextBold(
+                text: 'Feedback',
+                fontSize: 12,
+                color: Colors.grey,
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const HomeScreen()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.history_outlined),
+              title: TextBold(
+                text: 'History',
+                fontSize: 12,
+                color: Colors.grey,
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const HomeScreen()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
               title: TextBold(
                 text: 'Logout',
                 fontSize: 12,
-                color: Colors.black,
+                color: Colors.grey,
               ),
               onTap: () {
                 showDialog(
