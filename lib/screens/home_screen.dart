@@ -77,6 +77,8 @@ class HomeScreen extends StatelessWidget {
                           minRadius: 25,
                           maxRadius: 25,
                           backgroundColor: greyAccent,
+                          backgroundImage:
+                              AssetImage('assets/images/profile.png'),
                         ),
                       ),
                     ),
