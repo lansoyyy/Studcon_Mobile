@@ -2,6 +2,7 @@ import 'package:consultation_system_mobile/screens/message_screen/message_screen
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/appbar_widget.dart';
 import 'package:consultation_system_mobile/widgets/drawer_widget.dart';
+import 'package:consultation_system_mobile/widgets/search_delegate.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -17,23 +18,31 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                child: Container(
-                  child: ListTile(
-                    leading: const Icon(Icons.search, color: Colors.black),
-                    title: TextRegular(
-                        text: 'Search instructor',
-                        fontSize: 12,
-                        color: Colors.black),
-                  ),
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: greyAccent,
+            GestureDetector(
+              onTap: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchMessages(),
+                );
+              },
+              child: Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: Container(
+                    child: ListTile(
+                      leading: const Icon(Icons.search, color: Colors.black),
+                      title: TextRegular(
+                          text: 'Search instructor',
+                          fontSize: 12,
+                          color: Colors.black),
+                    ),
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: greyAccent,
+                    ),
                   ),
                 ),
               ),
