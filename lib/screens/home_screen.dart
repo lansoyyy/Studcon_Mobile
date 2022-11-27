@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                     child: ListTile(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const MessageScreen()));
+                            builder: (context) => MessageScreen()));
                       },
                       subtitle: TextRegular(
                           text: '8:4pm', fontSize: 10, color: Colors.grey),
