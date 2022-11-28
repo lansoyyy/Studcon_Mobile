@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:consultation_system_mobile/auth/login_page.dart.dart';
 import 'package:consultation_system_mobile/screens/feedback_page.dart';
 import 'package:consultation_system_mobile/screens/history_page.dart';
 import 'package:consultation_system_mobile/screens/home_screen.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -15,32 +18,52 @@ class DrawerWidget extends StatefulWidget {
 class _MyDrawerState extends State<DrawerWidget> {
   @override
   Widget build(BuildContext context) {
+    final Stream<DocumentSnapshot> userData = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .snapshots();
+
     return SizedBox(
       width: 220,
       child: Drawer(
         child: ListView(
           padding: const EdgeInsets.only(top: 0),
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
-                color: primary,
-              ),
-              accountEmail: TextRegular(
-                  text: 'olana@gmail.com', fontSize: 10, color: Colors.white),
-              accountName: TextBold(
-                text: 'Lance Olana',
-                fontSize: 14,
-                color: Colors.white,
-              ),
-              currentAccountPicture: const Padding(
-                padding: EdgeInsets.all(5.0),
-                child: CircleAvatar(
-                  minRadius: 50,
-                  maxRadius: 50,
-                  backgroundImage: AssetImage('assets/images/profile.png'),
-                ),
-              ),
-            ),
+            StreamBuilder<DocumentSnapshot>(
+                stream: userData,
+                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: Text('Loading'));
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Something went wrong'));
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  dynamic data = snapshot.data;
+                  return UserAccountsDrawerHeader(
+                    decoration: const BoxDecoration(
+                      color: primary,
+                    ),
+                    accountEmail: TextRegular(
+                        text: data['email'], fontSize: 10, color: Colors.white),
+                    accountName: TextBold(
+                      text: data['name'],
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                    currentAccountPicture: const Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: CircleAvatar(
+                        minRadius: 50,
+                        maxRadius: 50,
+                        backgroundImage:
+                            AssetImage('assets/images/profile.png'),
+                      ),
+                    ),
+                  );
+                }),
             ListTile(
               leading: const Icon(Icons.message),
               title: TextBold(
@@ -109,11 +132,11 @@ class _MyDrawerState extends State<DrawerWidget> {
                               ),
                             ),
                             FlatButton(
-                              onPressed: () {
-                                // Navigator.of(context).pushReplacement(
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const LogInPage()));
+                              onPressed: () async {
+                                await FirebaseAuth.instance.signOut();
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()));
                               },
                               child: const Text(
                                 'Continue',

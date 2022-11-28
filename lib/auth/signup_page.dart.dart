@@ -1,15 +1,34 @@
+import 'package:consultation_system_mobile/services/cloud_function/add_user.dart';
 import 'package:consultation_system_mobile/widgets/button_widget.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'login_page.dart.dart';
 
-class SignupPage extends StatelessWidget {
-  SignupPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
   late String name;
+
   late String contactNumber;
+
   late String address;
+
+  late String email;
+
+  late String password;
+
+  late String course;
+
+  var dropDownValue = 1;
+
+  var productCategory = 'First Year';
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +44,12 @@ class SignupPage extends StatelessWidget {
               'assets/images/signup.gif',
               height: 180,
             ),
+            const SizedBox(height: 20),
+            TextBold(
+                text: 'Personal Information',
+                fontSize: 18,
+                color: Colors.black),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
               child: TextFormField(
@@ -97,7 +122,7 @@ class SignupPage extends StatelessWidget {
                 style: const TextStyle(
                     color: Colors.black, fontFamily: 'QRegular'),
                 onChanged: (_input) {
-                  name = _input;
+                  address = _input;
                 },
                 decoration: InputDecoration(
                   suffixIcon: const Icon(
@@ -123,104 +148,246 @@ class SignupPage extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              child: TextFormField(
+                style: const TextStyle(
+                    color: Colors.black, fontFamily: 'QRegular'),
+                onChanged: (_input) {
+                  course = _input;
+                },
+                decoration: InputDecoration(
+                  fillColor: Colors.grey[200],
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.white),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  labelText: 'Course',
+                  labelStyle: const TextStyle(
+                    fontFamily: 'QRegular',
+                    color: Colors.black,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
+                  child: DropdownButton(
+                    underline: Container(color: Colors.transparent),
+                    iconEnabledColor: Colors.black,
+                    isExpanded: true,
+                    value: dropDownValue,
+                    items: [
+                      DropdownMenuItem(
+                        onTap: () {
+                          productCategory = "First Year";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("First Year",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 1,
+                      ),
+                      DropdownMenuItem(
+                        onTap: () {
+                          productCategory = "Second Year";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("Second Year",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 2,
+                      ),
+                      DropdownMenuItem(
+                        onTap: () {
+                          productCategory = "Third Year";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("Third Year",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 3,
+                      ),
+                      DropdownMenuItem(
+                        onTap: () {
+                          productCategory = "Fourth Year";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("Fourth Year",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 4,
+                      ),
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        dropDownValue = int.parse(value.toString());
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
             TextBold(
-                text: 'Picture of your Valid ID',
-                fontSize: 18,
-                color: Colors.black),
+                text: 'Login Credentials', fontSize: 18, color: Colors.black),
             const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.add, size: 32),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextBold(
-                            text: 'Front', fontSize: 12, color: Colors.black),
-                      ],
-                    ),
-                    height: 180,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              child: TextFormField(
+                style: const TextStyle(
+                    color: Colors.black, fontFamily: 'QRegular'),
+                onChanged: (_input) {
+                  email = _input;
+                },
+                decoration: InputDecoration(
+                  fillColor: Colors.grey[200],
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.white),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  labelText: 'Email',
+                  labelStyle: const TextStyle(
+                    fontFamily: 'QRegular',
+                    color: Colors.black,
+                    fontSize: 12.0,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.add, size: 32),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextBold(
-                            text: 'Back', fontSize: 12, color: Colors.black),
-                      ],
-                    ),
-                    height: 180,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              child: TextFormField(
+                obscureText: true,
+                style: const TextStyle(
+                    color: Colors.black, fontFamily: 'QRegular'),
+                onChanged: (_input) {
+                  password = _input;
+                },
+                decoration: InputDecoration(
+                  fillColor: Colors.grey[200],
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.white),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  labelText: 'Password',
+                  labelStyle: const TextStyle(
+                    fontFamily: 'QRegular',
+                    color: Colors.black,
+                    fontSize: 12.0,
                   ),
                 ),
-              ],
+              ),
             ),
             const SizedBox(
               height: 30,
             ),
             ButtonWidget(
-                onPressed: () {
-                  showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (context) {
-                        return Dialog(
-                          child: SizedBox(
-                              height: 300,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.check_circle_outline_outlined,
-                                    size: 75,
+                onPressed: () async {
+                  try {
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: email, password: password);
+                    addUser(name, contactNumber, address, course,
+                        productCategory, email);
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return Dialog(
+                            child: SizedBox(
+                                height: 300,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.check_circle_outline_outlined,
+                                      size: 75,
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    TextBold(
+                                        text: 'Registered Succesfully!',
+                                        fontSize: 18,
+                                        color: Colors.black),
+                                    const SizedBox(
+                                      height: 50,
+                                    ),
+                                    ButtonWidget(
+                                        onPressed: () async {
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LoginPage()));
+                                        },
+                                        text: 'Continue'),
+                                  ],
+                                )),
+                          );
+                        });
+                  } catch (e) {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => AlertDialog(
+                              content: Text(
+                                e.toString(),
+                                style: const TextStyle(fontFamily: 'QRegular'),
+                              ),
+                              actions: <Widget>[
+                                FlatButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text(
+                                    'Close',
+                                    style: TextStyle(
+                                        fontFamily: 'QRegular',
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  TextBold(
-                                      text: 'Registered Succesfully!',
-                                      fontSize: 18,
-                                      color: Colors.black),
-                                  const SizedBox(
-                                    height: 50,
-                                  ),
-                                  ButtonWidget(
-                                      onPressed: () {
-                                        Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginPage()));
-                                      },
-                                      text: 'Continue'),
-                                ],
-                              )),
-                        );
-                      });
+                                ),
+                              ],
+                            ));
+                  }
                 },
                 text: 'Register'),
             const SizedBox(

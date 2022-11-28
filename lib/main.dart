@@ -1,5 +1,5 @@
+import 'package:consultation_system_mobile/auth/login_page.dart.dart';
 import 'package:consultation_system_mobile/firebase_options.dart';
-import 'package:consultation_system_mobile/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
+    return MaterialApp(
+      home: LoginPage(),
     );
   }
 }
