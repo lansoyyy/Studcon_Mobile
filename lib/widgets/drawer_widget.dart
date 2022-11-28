@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation_system_mobile/auth/login_page.dart.dart';
 import 'package:consultation_system_mobile/screens/feedback_page.dart';
-import 'package:consultation_system_mobile/screens/history_page.dart';
 import 'package:consultation_system_mobile/screens/home_screen.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
@@ -88,18 +87,18 @@ class _MyDrawerState extends State<DrawerWidget> {
                     MaterialPageRoute(builder: (context) => FeedbackPage()));
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.history_outlined),
-              title: TextBold(
-                text: 'History',
-                fontSize: 12,
-                color: Colors.grey,
-              ),
-              onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const HistoryPage()));
-              },
-            ),
+            // ListTile(
+            //   leading: const Icon(Icons.history_outlined),
+            //   title: TextBold(
+            //     text: 'History',
+            //     fontSize: 12,
+            //     color: Colors.grey,
+            //   ),
+            //   onTap: () {
+            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //         builder: (context) => const HistoryPage()));
+            //   },
+            // ),
             ListTile(
               leading: const Icon(Icons.logout),
               title: TextBold(
