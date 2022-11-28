@@ -3,11 +3,23 @@ import 'package:consultation_system_mobile/widgets/appbar_widget.dart';
 import 'package:consultation_system_mobile/widgets/button_widget.dart';
 import 'package:consultation_system_mobile/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class FeedbackPage extends StatelessWidget {
   FeedbackPage({Key? key}) : super(key: key);
 
   final feedbackController = TextEditingController();
+
+  showToast() {
+    Fluttertoast.showToast(
+        msg: "Feedback Added Succesfully!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +65,7 @@ class FeedbackPage extends StatelessWidget {
             ),
             ButtonWidget(
                 onPressed: () {
+                  showToast();
                   feedbackController.clear();
                 },
                 text: 'Submit Feedback'),
