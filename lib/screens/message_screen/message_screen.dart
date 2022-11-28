@@ -17,6 +17,7 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
   final messageController = TextEditingController();
 
   late String name = '';
+  late String email = '';
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
         for (var queryDocumentSnapshot in querySnapshot.docs) {
           Map<String, dynamic> data = queryDocumentSnapshot.data();
           name = data['first_name'] + ' ' + data['sur_name'];
+          email = data['email'];
         }
       });
     }
@@ -164,6 +166,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                       suffixIcon: IconButton(
                         onPressed: () {
                           addMessage(
+                              name,
+                              email,
                               myCourse,
                               messageController.text,
                               myName,
@@ -171,6 +175,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                               myEmail,
                               ref.watch(instructorIdProvider.notifier).state);
                           addMessage2(
+                              name,
+                              email,
                               myCourse,
                               messageController.text,
                               myName,

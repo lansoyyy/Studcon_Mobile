@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
 Future addMessage(
+  String instructorName,
+  String instructorEmail,
   String course,
   String message,
   String name,
@@ -15,6 +17,10 @@ Future addMessage(
       .doc(receiverId)
       .collection('Messages')
       .doc();
+
+  final docUser1 = FirebaseFirestore.instance
+      .collection(FirebaseAuth.instance.currentUser!.uid)
+      .doc(receiverId);
 
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
 
@@ -29,10 +35,21 @@ Future addMessage(
     'dateTime': DateTime.now(),
   };
 
+  final json1 = {
+    'instructorName': instructorName,
+    'instructorEmail': instructorEmail,
+    'dateTime': DateTime.now(),
+    'time': tdata,
+  };
+
+  await docUser1.set(json1);
+
   await docUser.set(json);
 }
 
 Future addMessage2(
+  String instructorName,
+  String instructorEmail,
   String course,
   String message,
   String name,
@@ -58,6 +75,19 @@ Future addMessage2(
     'id': docUser.id,
     'dateTime': DateTime.now(),
   };
+
+  final json1 = {
+    'name': instructorName,
+    'email': instructorEmail,
+    'dateTime': DateTime.now(),
+    'time': tdata,
+  };
+
+  final docUser1 = FirebaseFirestore.instance
+      .collection(FirebaseAuth.instance.currentUser!.uid)
+      .doc(receiverId);
+
+  await docUser1.set(json1);
 
   await docUser.set(json);
 }
