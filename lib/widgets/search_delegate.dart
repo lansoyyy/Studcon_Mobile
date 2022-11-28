@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:consultation_system_mobile/screens/message_screen/message_screen.dart';
 import 'package:consultation_system_mobile/services/providers.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../screens/message_screen/message_screen.dart';
+import 'package:get_storage/get_storage.dart';
 
 class SearchMessages extends SearchDelegate {
   @override
@@ -54,6 +54,7 @@ class SearchMessages extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    final box = GetStorage();
     // TODO: implement buildSuggestions
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -83,10 +84,112 @@ class SearchMessages extends SearchDelegate {
                   builder: ((context, ref, child) {
                     return ListTile(
                       onTap: () {
-                        ref.read(instructorIdProvider.notifier).state =
-                            data.docs[index].id;
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => MessageScreen()));
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                child: Container(
+                                  color: Colors.grey[200],
+                                  height: 275,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      TextBold(
+                                          text: 'Type of concern',
+                                          fontSize: 14,
+                                          color: Colors.black),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      MaterialButton(
+                                          color: Colors.white,
+                                          minWidth: 200,
+                                          child: TextRegular(
+                                              text: 'Grades',
+                                              fontSize: 12,
+                                              color: Colors.black),
+                                          onPressed: () {
+                                            box.write('concern', 'Grades');
+                                            ref
+                                                .read(instructorIdProvider
+                                                    .notifier)
+                                                .state = data.docs[index].id;
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MessageScreen()));
+                                          }),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      MaterialButton(
+                                          color: Colors.white,
+                                          minWidth: 200,
+                                          child: TextRegular(
+                                              text: 'Attendance',
+                                              fontSize: 12,
+                                              color: Colors.black),
+                                          onPressed: () {
+                                            box.write('concern', 'Attendance');
+                                            ref
+                                                .read(instructorIdProvider
+                                                    .notifier)
+                                                .state = data.docs[index].id;
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MessageScreen()));
+                                          }),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      MaterialButton(
+                                          color: Colors.white,
+                                          minWidth: 200,
+                                          child: TextRegular(
+                                              text: 'Requirements',
+                                              fontSize: 12,
+                                              color: Colors.black),
+                                          onPressed: () {
+                                            box.write(
+                                                'concern', 'Requirements');
+                                            ref
+                                                .read(instructorIdProvider
+                                                    .notifier)
+                                                .state = data.docs[index].id;
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MessageScreen()));
+                                          }),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      MaterialButton(
+                                          color: Colors.white,
+                                          minWidth: 200,
+                                          child: TextRegular(
+                                              text: 'Others',
+                                              fontSize: 12,
+                                              color: Colors.black),
+                                          onPressed: () {
+                                            box.write('concern', 'Others');
+                                            ref
+                                                .read(instructorIdProvider
+                                                    .notifier)
+                                                .state = data.docs[index].id;
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MessageScreen()));
+                                          }),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
                       },
                       subtitle: TextRegular(
                           text: 'IT Department',

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:consultation_system_mobile/services/cloud_function/add_concern.dart';
 import 'package:consultation_system_mobile/services/cloud_function/add_message.dart';
 import 'package:consultation_system_mobile/services/providers.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
@@ -7,6 +8,7 @@ import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
 
 class MessageScreen extends ConsumerStatefulWidget {
   @override
@@ -47,6 +49,7 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
   late String myName;
   late String myEmail;
   late String myCourse;
+  late String myYear;
   getData1() async {
     // Use provider
     var collection = FirebaseFirestore.instance
@@ -61,10 +64,13 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
           myName = data['name'];
           myEmail = data['email'];
           myCourse = data['course'];
+          myYear = data['yearLevel'];
         }
       });
     }
   }
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +177,7 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                               myCourse,
                               messageController.text,
                               myName,
-                              'Grade',
+                              box.read('concern'),
                               myEmail,
                               ref.watch(instructorIdProvider.notifier).state);
                           addMessage2(
@@ -180,9 +186,11 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                               myCourse,
                               messageController.text,
                               myName,
-                              'Grade',
+                              box.read('concern'),
                               myEmail,
                               ref.watch(instructorIdProvider.notifier).state);
+                          addConcern(myName, myCourse, myYear, myEmail);
+
                           messageController.clear();
                         },
                         icon: const Icon(

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation_system_mobile/screens/message_screen/message_screen.dart';
+import 'package:consultation_system_mobile/services/providers.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/appbar_widget.dart';
 import 'package:consultation_system_mobile/widgets/drawer_widget.dart';
@@ -7,12 +8,13 @@ import 'package:consultation_system_mobile/widgets/search_delegate.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: greyAccent,
       drawer: const DrawerWidget(),
@@ -55,8 +57,6 @@ class HomeScreen extends StatelessWidget {
             StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection(FirebaseAuth.instance.currentUser!.uid)
-                    .doc()
-                    .collection('Messages')
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -90,15 +90,18 @@ class HomeScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 onTap: () {
+                                  ref
+                                      .read(instructorIdProvider.notifier)
+                                      .state = data.docs[index].id;
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => MessageScreen()));
                                 },
                                 subtitle: TextRegular(
-                                    text: '8:4pm',
+                                    text: data.docs[index]['time'],
                                     fontSize: 10,
                                     color: Colors.grey),
                                 title: TextRegular(
-                                    text: 'Lorem Ipsum',
+                                    text: data.docs[index]['name'],
                                     fontSize: 12,
                                     color: Colors.black),
                                 trailing: const Icon(Icons.arrow_right),
