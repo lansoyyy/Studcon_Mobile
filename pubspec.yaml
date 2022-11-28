@@ -46,6 +46,7 @@ dependencies:
   flutter_riverpod:
   firebase_core_platform_interface: 4.5.1
   intl:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:
