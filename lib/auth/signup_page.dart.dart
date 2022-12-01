@@ -24,11 +24,13 @@ class _SignupPageState extends State<SignupPage> {
 
   late String password;
 
-  late String course;
-
   var dropDownValue = 1;
 
+  var dropDownValue1 = 1;
+
   var productCategory = 'First Year';
+
+  var course = 'IT';
 
   @override
   Widget build(BuildContext context) {
@@ -148,34 +150,104 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
             ),
+            TextRegular(text: 'Course', fontSize: 12, color: Colors.black),
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-              child: TextFormField(
-                style: const TextStyle(
-                    color: Colors.black, fontFamily: 'QRegular'),
-                onChanged: (_input) {
-                  course = _input;
-                },
-                decoration: InputDecoration(
-                  fillColor: Colors.grey[200],
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.white),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  labelText: 'Course',
-                  labelStyle: const TextStyle(
-                    fontFamily: 'QRegular',
-                    color: Colors.black,
-                    fontSize: 12.0,
+              padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
+                  child: DropdownButton(
+                    underline: Container(color: Colors.transparent),
+                    iconEnabledColor: Colors.black,
+                    isExpanded: true,
+                    value: dropDownValue1,
+                    items: [
+                      DropdownMenuItem(
+                        onTap: () {
+                          course = "IT";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("IT",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 1,
+                      ),
+                      DropdownMenuItem(
+                        onTap: () {
+                          course = "Nursing";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("Nursing",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 2,
+                      ),
+                      DropdownMenuItem(
+                        onTap: () {
+                          course = "Educ";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("Educ",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 3,
+                      ),
+                      DropdownMenuItem(
+                        onTap: () {
+                          course = "Public Ad";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("Public Ad",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 4,
+                      ),
+                      DropdownMenuItem(
+                        onTap: () {
+                          course = "Hotel Management";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("Hotel Management",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 5,
+                      ),
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        dropDownValue1 = int.parse(value.toString());
+                      });
+                    },
                   ),
                 ),
               ),
             ),
+            const SizedBox(height: 20),
+            TextRegular(text: 'Year Level', fontSize: 12, color: Colors.black),
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
               child: Container(
