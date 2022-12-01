@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation_system_mobile/auth/login_page.dart.dart';
 import 'package:consultation_system_mobile/screens/feedback_page.dart';
@@ -5,7 +7,11 @@ import 'package:consultation_system_mobile/screens/home_screen.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -15,6 +21,88 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<DrawerWidget> {
+  var hasLoaded = false;
+
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+
+  late String fileName = '';
+
+  late File imageFile;
+
+  late String imageURL = '';
+
+  Future<void> uploadPicture(String inputSource) async {
+    final picker = ImagePicker();
+    XFile pickedImage;
+    try {
+      pickedImage = (await picker.pickImage(
+          source: inputSource == 'camera'
+              ? ImageSource.camera
+              : ImageSource.gallery,
+          maxWidth: 1920))!;
+
+      fileName = path.basename(pickedImage.path);
+      imageFile = File(pickedImage.path);
+
+      try {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: AlertDialog(
+                title: Row(
+              children: const [
+                CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  'Loading . . .',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'QRegular'),
+                ),
+              ],
+            )),
+          ),
+        );
+
+        await firebase_storage.FirebaseStorage.instance
+            .ref('CoverPhoto/$fileName')
+            .putFile(imageFile);
+        imageURL = await firebase_storage.FirebaseStorage.instance
+            .ref('CoverPhoto/$fileName')
+            .getDownloadURL();
+
+        setState(() {
+          hasLoaded = true;
+        });
+
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({
+          'profilePicture': imageURL,
+        });
+
+        Navigator.of(context).pop();
+      } on firebase_storage.FirebaseException catch (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      }
+    } catch (err) {
+      if (kDebugMode) {
+        print(err);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Stream<DocumentSnapshot> userData = FirebaseFirestore.instance
@@ -52,13 +140,17 @@ class _MyDrawerState extends State<DrawerWidget> {
                       fontSize: 14,
                       color: Colors.white,
                     ),
-                    currentAccountPicture: const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: CircleAvatar(
-                        minRadius: 50,
-                        maxRadius: 50,
-                        backgroundImage:
-                            AssetImage('assets/images/profile.png'),
+                    currentAccountPicture: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          uploadPicture('gallery');
+                        },
+                        child: CircleAvatar(
+                          minRadius: 50,
+                          maxRadius: 50,
+                          backgroundImage: NetworkImage(data['profilePicture']),
+                        ),
                       ),
                     ),
                   );
