@@ -104,7 +104,17 @@ class HomeScreen extends ConsumerWidget {
                                     text: data.docs[index]['instructorName'],
                                     fontSize: 12,
                                     color: Colors.black),
-                                trailing: const Icon(Icons.arrow_right),
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    FirebaseFirestore.instance
+                                        .collection(FirebaseAuth
+                                            .instance.currentUser!.uid)
+                                        .doc(data.docs[index].id)
+                                        .delete();
+                                  },
+                                  icon: const Icon(Icons.delete,
+                                      color: Colors.red),
+                                ),
                                 tileColor: Colors.white,
                                 leading: Padding(
                                   padding: const EdgeInsets.all(5.0),

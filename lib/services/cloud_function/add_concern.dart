@@ -28,6 +28,7 @@ Future addConcern(
     'concern': box.read('concern'),
     'dateTime': DateTime.now(),
     'time': tdata,
+    'type': 'Unsolved'
   };
 
   await docUser.set(json);

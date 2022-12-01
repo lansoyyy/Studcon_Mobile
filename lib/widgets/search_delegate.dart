@@ -116,15 +116,17 @@ class SearchMessages extends SearchDelegate {
                                               fontSize: 12,
                                               color: Colors.black),
                                           onPressed: () {
+                                            Navigator.of(context).pop();
                                             box.write('concern', 'Grades');
                                             ref
                                                 .read(instructorIdProvider
                                                     .notifier)
                                                 .state = data.docs[index].id;
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MessageScreen()));
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MessageScreen()));
                                           }),
                                       const SizedBox(
                                         height: 5,
@@ -137,15 +139,17 @@ class SearchMessages extends SearchDelegate {
                                               fontSize: 12,
                                               color: Colors.black),
                                           onPressed: () {
+                                            Navigator.of(context).pop();
                                             box.write('concern', 'Attendance');
                                             ref
                                                 .read(instructorIdProvider
                                                     .notifier)
                                                 .state = data.docs[index].id;
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MessageScreen()));
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MessageScreen()));
                                           }),
                                       const SizedBox(
                                         height: 5,
@@ -158,16 +162,18 @@ class SearchMessages extends SearchDelegate {
                                               fontSize: 12,
                                               color: Colors.black),
                                           onPressed: () {
+                                            Navigator.of(context).pop();
                                             box.write(
                                                 'concern', 'Requirements');
                                             ref
                                                 .read(instructorIdProvider
                                                     .notifier)
                                                 .state = data.docs[index].id;
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MessageScreen()));
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MessageScreen()));
                                           }),
                                       const SizedBox(
                                         height: 5,
@@ -180,15 +186,18 @@ class SearchMessages extends SearchDelegate {
                                               fontSize: 12,
                                               color: Colors.black),
                                           onPressed: () {
+                                            Navigator.of(context).pop();
                                             box.write('concern', 'Others');
                                             ref
                                                 .read(instructorIdProvider
                                                     .notifier)
                                                 .state = data.docs[index].id;
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MessageScreen()));
+
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MessageScreen()));
                                           }),
                                     ],
                                   ),
