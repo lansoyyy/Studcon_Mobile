@@ -6,6 +6,7 @@ import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class SearchMessages extends SearchDelegate {
   @override
@@ -59,6 +60,10 @@ class SearchMessages extends SearchDelegate {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('CONSULTATION-USERS')
+            .where('first_name',
+                isGreaterThanOrEqualTo: toBeginningOfSentenceCase(query))
+            .where('first_name',
+                isLessThan: '${toBeginningOfSentenceCase(query)}z')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
