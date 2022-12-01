@@ -87,8 +87,13 @@ class FeedbackPage extends StatelessWidget {
                   ),
                   ButtonWidget(
                       onPressed: () {
-                        addFeedback(feedbackController.text, data['name'],
-                            data['course'], data['yearLevel'], data['email']);
+                        addFeedback(
+                            data['profilePicture'],
+                            feedbackController.text,
+                            data['name'],
+                            data['course'],
+                            data['yearLevel'],
+                            data['email']);
                         showToast();
                         feedbackController.clear();
                       },

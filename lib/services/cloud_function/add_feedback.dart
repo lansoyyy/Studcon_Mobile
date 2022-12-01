@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 Future addFeedback(
+  String profilePicture,
   String feedback,
   String name,
   String course,
@@ -13,6 +14,7 @@ Future addFeedback(
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
 
   final json = {
+    'profilePicture': profilePicture,
     'name': name,
     'email': email,
     'course': course,
