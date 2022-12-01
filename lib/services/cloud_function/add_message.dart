@@ -31,6 +31,7 @@ Future addMessage(
     'email': email,
     'concern': concern,
     'time': tdata,
+    'status': 'Unread',
     'id': docUser.id,
     'dateTime': DateTime.now(),
   };
@@ -40,6 +41,7 @@ Future addMessage(
     'instructorEmail': instructorEmail,
     'dateTime': DateTime.now(),
     'time': tdata,
+    'status': 'Unread',
   };
 
   await docUser1.set(json1);
@@ -73,14 +75,16 @@ Future addMessage2(
     'concern': concern,
     'time': tdata,
     'id': docUser.id,
+    'status': 'Unread',
     'dateTime': DateTime.now(),
   };
 
   final json1 = {
-    'name': instructorName,
-    'email': instructorEmail,
+    'name': name,
+    'email': email,
     'dateTime': DateTime.now(),
     'time': tdata,
+    'status': 'Unread',
   };
 
   final docUser1 = FirebaseFirestore.instance
