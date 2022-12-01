@@ -8,6 +8,7 @@ Future addConcern(
   String course,
   String yearLevel,
   String email,
+  String profilePicture,
 ) async {
   final docUser = FirebaseFirestore.instance
       .collection('Concerns')
@@ -18,6 +19,7 @@ Future addConcern(
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
 
   final json = {
+    'profilePicture': profilePicture,
     'name': name,
     'email': email,
     'course': course,

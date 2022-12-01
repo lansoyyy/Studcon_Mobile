@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:consultation_system_mobile/services/cloud_function/add_concern.dart';
 import 'package:consultation_system_mobile/services/cloud_function/add_message.dart';
 import 'package:consultation_system_mobile/services/providers.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
@@ -9,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
+
+import '../../services/cloud_function/add_concern.dart';
 
 class MessageScreen extends ConsumerStatefulWidget {
   @override
@@ -28,6 +29,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
     getData1();
   }
 
+  late String instructorProfile = '';
+
   getData() async {
     // Use provider
     var collection = FirebaseFirestore.instance
@@ -41,6 +44,7 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
           Map<String, dynamic> data = queryDocumentSnapshot.data();
           name = data['first_name'] + ' ' + data['sur_name'];
           email = data['email'];
+          instructorProfile = data['profilePicture'];
         }
       });
     }
@@ -50,6 +54,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
   late String myEmail;
   late String myCourse;
   late String myYear;
+  late String myProfile;
+
   getData1() async {
     // Use provider
     var collection = FirebaseFirestore.instance
@@ -65,6 +71,7 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
           myEmail = data['email'];
           myCourse = data['course'];
           myYear = data['yearLevel'];
+          myProfile = data['profilePicture'];
         }
       });
     }
@@ -172,24 +179,27 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                       suffixIcon: IconButton(
                         onPressed: () {
                           addMessage(
+                              myYear,
+                              instructorProfile,
                               name,
                               email,
                               myCourse,
                               messageController.text,
                               myName,
-                              box.read('concern'),
                               myEmail,
                               ref.watch(instructorIdProvider.notifier).state);
                           addMessage2(
+                              myYear,
+                              myProfile,
                               name,
                               email,
                               myCourse,
                               messageController.text,
                               myName,
-                              box.read('concern'),
                               myEmail,
                               ref.watch(instructorIdProvider.notifier).state);
-                          addConcern(myName, myCourse, myYear, myEmail);
+                          addConcern(
+                              myProfile, myName, myCourse, myYear, myEmail);
 
                           messageController.clear();
                         },

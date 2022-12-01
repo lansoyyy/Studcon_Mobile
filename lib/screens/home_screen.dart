@@ -101,19 +101,19 @@ class HomeScreen extends ConsumerWidget {
                                     fontSize: 10,
                                     color: Colors.grey),
                                 title: TextRegular(
-                                    text: data.docs[index]['name'],
+                                    text: data.docs[index]['instructorName'],
                                     fontSize: 12,
                                     color: Colors.black),
                                 trailing: const Icon(Icons.arrow_right),
                                 tileColor: Colors.white,
-                                leading: const Padding(
-                                  padding: EdgeInsets.all(5.0),
+                                leading: Padding(
+                                  padding: const EdgeInsets.all(5.0),
                                   child: CircleAvatar(
                                     minRadius: 25,
                                     maxRadius: 25,
                                     backgroundColor: greyAccent,
-                                    backgroundImage:
-                                        AssetImage('assets/images/profile.png'),
+                                    backgroundImage: NetworkImage(
+                                        data.docs[index]['profilePicture']),
                                   ),
                                 ),
                               ),

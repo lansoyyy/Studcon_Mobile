@@ -208,14 +208,14 @@ class SearchMessages extends SearchDelegate {
                           color: Colors.black),
                       trailing: const Icon(Icons.arrow_right),
                       tileColor: Colors.white,
-                      leading: const Padding(
-                        padding: EdgeInsets.all(5.0),
+                      leading: Padding(
+                        padding: const EdgeInsets.all(5.0),
                         child: CircleAvatar(
                           minRadius: 25,
                           maxRadius: 25,
                           backgroundColor: greyAccent,
                           backgroundImage:
-                              AssetImage('assets/images/profile.png'),
+                              NetworkImage(data.docs[index]['profilePicture']),
                         ),
                       ),
                     );
