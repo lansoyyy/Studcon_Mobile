@@ -193,6 +193,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                                   padding:
                                       const EdgeInsets.fromLTRB(20, 10, 20, 10),
                                   child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Align(
                                         alignment: Alignment.topRight,
@@ -201,18 +203,22 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                                             fontSize: 12,
                                             color: Colors.grey),
                                       ),
-                                      Text(
-                                        data.docs[index]['message'],
-                                        style: const TextStyle(
-                                          fontFamily: 'QRegular',
-                                          fontSize: 14,
-                                          color: Colors.black,
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        child: Text(
+                                          data.docs[index]['message'],
+                                          style: const TextStyle(
+                                            fontFamily: 'QRegular',
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
                                       ListTile(
                                         title: TextBold(
                                             text: data.docs[index]['name'],
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             color: Colors.black),
                                         subtitle: TextRegular(
                                             text: data.docs[index]['course'],
