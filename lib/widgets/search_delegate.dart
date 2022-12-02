@@ -89,121 +89,146 @@ class SearchMessages extends SearchDelegate {
                   builder: ((context, ref, child) {
                     return ListTile(
                       onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Dialog(
-                                child: Container(
-                                  color: Colors.grey[200],
-                                  height: 275,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      TextBold(
-                                          text: 'Type of concern',
-                                          fontSize: 14,
-                                          color: Colors.black),
-                                      const SizedBox(
-                                        height: 10,
+                        if (data.docs[index]['status'] == 'Inactive') {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    content: const Text(
+                                      'Inactive Status',
+                                      style: TextStyle(fontFamily: 'QRegular'),
+                                    ),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(true),
+                                        child: const Text(
+                                          'Close',
+                                          style: TextStyle(
+                                              fontFamily: 'QRegular',
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
-                                      MaterialButton(
-                                          color: Colors.white,
-                                          minWidth: 200,
-                                          child: TextRegular(
-                                              text: 'Grades',
-                                              fontSize: 12,
-                                              color: Colors.black),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            box.write('concern', 'Grades');
-                                            ref
-                                                .read(instructorIdProvider
-                                                    .notifier)
-                                                .state = data.docs[index].id;
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MessageScreen()));
-                                          }),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      MaterialButton(
-                                          color: Colors.white,
-                                          minWidth: 200,
-                                          child: TextRegular(
-                                              text: 'Attendance',
-                                              fontSize: 12,
-                                              color: Colors.black),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            box.write('concern', 'Attendance');
-                                            ref
-                                                .read(instructorIdProvider
-                                                    .notifier)
-                                                .state = data.docs[index].id;
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MessageScreen()));
-                                          }),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      MaterialButton(
-                                          color: Colors.white,
-                                          minWidth: 200,
-                                          child: TextRegular(
-                                              text: 'Requirements',
-                                              fontSize: 12,
-                                              color: Colors.black),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            box.write(
-                                                'concern', 'Requirements');
-                                            ref
-                                                .read(instructorIdProvider
-                                                    .notifier)
-                                                .state = data.docs[index].id;
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MessageScreen()));
-                                          }),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      MaterialButton(
-                                          color: Colors.white,
-                                          minWidth: 200,
-                                          child: TextRegular(
-                                              text: 'Others',
-                                              fontSize: 12,
-                                              color: Colors.black),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            box.write('concern', 'Others');
-                                            ref
-                                                .read(instructorIdProvider
-                                                    .notifier)
-                                                .state = data.docs[index].id;
-
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MessageScreen()));
-                                          }),
                                     ],
+                                  ));
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  child: Container(
+                                    color: Colors.grey[200],
+                                    height: 275,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        TextBold(
+                                            text: 'Type of concern',
+                                            fontSize: 14,
+                                            color: Colors.black),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        MaterialButton(
+                                            color: Colors.white,
+                                            minWidth: 200,
+                                            child: TextRegular(
+                                                text: 'Grades',
+                                                fontSize: 12,
+                                                color: Colors.black),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              box.write('concern', 'Grades');
+                                              ref
+                                                  .read(instructorIdProvider
+                                                      .notifier)
+                                                  .state = data.docs[index].id;
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MessageScreen()));
+                                            }),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        MaterialButton(
+                                            color: Colors.white,
+                                            minWidth: 200,
+                                            child: TextRegular(
+                                                text: 'Attendance',
+                                                fontSize: 12,
+                                                color: Colors.black),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              box.write(
+                                                  'concern', 'Attendance');
+                                              ref
+                                                  .read(instructorIdProvider
+                                                      .notifier)
+                                                  .state = data.docs[index].id;
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MessageScreen()));
+                                            }),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        MaterialButton(
+                                            color: Colors.white,
+                                            minWidth: 200,
+                                            child: TextRegular(
+                                                text: 'Requirements',
+                                                fontSize: 12,
+                                                color: Colors.black),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              box.write(
+                                                  'concern', 'Requirements');
+                                              ref
+                                                  .read(instructorIdProvider
+                                                      .notifier)
+                                                  .state = data.docs[index].id;
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MessageScreen()));
+                                            }),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        MaterialButton(
+                                            color: Colors.white,
+                                            minWidth: 200,
+                                            child: TextRegular(
+                                                text: 'Others',
+                                                fontSize: 12,
+                                                color: Colors.black),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              box.write('concern', 'Others');
+                                              ref
+                                                  .read(instructorIdProvider
+                                                      .notifier)
+                                                  .state = data.docs[index].id;
+
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MessageScreen()));
+                                            }),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            });
+                                );
+                              });
+                        }
                       },
                       subtitle: TextRegular(
                           text: 'IT Department',

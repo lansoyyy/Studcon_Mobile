@@ -272,8 +272,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                                     ref
                                         .watch(instructorIdProvider.notifier)
                                         .state);
-                                addConcern(myProfile, myName, myCourse, myYear,
-                                    myEmail);
+                                addConcern(myName, myCourse, myYear, myEmail,
+                                    myProfile);
 
                                 messageController.clear();
                               },
