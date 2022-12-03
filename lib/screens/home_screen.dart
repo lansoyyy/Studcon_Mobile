@@ -9,9 +9,15 @@ import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends ConsumerWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  String tdata = DateFormat("hh").format(DateTime.now());
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -90,11 +96,73 @@ class HomeScreen extends ConsumerWidget {
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 onTap: () {
-                                  ref
-                                      .read(instructorIdProvider.notifier)
-                                      .state = data.docs[index].id;
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => MessageScreen()));
+                                  if (data.docs[index]['status'] ==
+                                      'Inactive') {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              content: const Text(
+                                                'Inactive Status',
+                                                style: TextStyle(
+                                                    fontFamily: 'QRegular'),
+                                              ),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  onPressed: () =>
+                                                      Navigator.of(context)
+                                                          .pop(true),
+                                                  child: const Text(
+                                                    'Close',
+                                                    style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                              ],
+                                            ));
+                                  } else {
+                                    if (int.parse(tdata) <=
+                                            data.docs[index]['from'] &&
+                                        int.parse(tdata) >=
+                                            data.docs[index]['to']) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                content: const Text(
+                                                  'This person is not available in this period of time',
+                                                  style: TextStyle(
+                                                      fontFamily: 'QRegular'),
+                                                ),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context)
+                                                            .pop(true),
+                                                    child: const Text(
+                                                      'Close',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'QRegular',
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ));
+                                    } else {
+                                      box.write('to', data.docs[index]['to']);
+                                      box.write(
+                                          'from', data.docs[index]['from']);
+                                      ref
+                                          .read(instructorIdProvider.notifier)
+                                          .state = data.docs[index].id;
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MessageScreen()));
+                                    }
+                                  }
                                 },
                                 subtitle: TextRegular(
                                     text: data.docs[index]['time'],

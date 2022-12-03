@@ -265,7 +265,9 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                                     myEmail,
                                     ref
                                         .watch(instructorIdProvider.notifier)
-                                        .state);
+                                        .state,
+                                    box.read('to'),
+                                    box.read('from'));
                                 addMessage2(
                                     myYear,
                                     myProfile,

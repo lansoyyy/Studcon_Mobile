@@ -13,6 +13,8 @@ Future addMessage(
   String name,
   String email,
   String receiverId,
+  int to,
+  int from,
 ) async {
   final docUser = FirebaseFirestore.instance
       .collection(FirebaseAuth.instance.currentUser!.uid)
@@ -52,6 +54,8 @@ Future addMessage(
     'time': tdata,
     'status': 'Unread',
     'concern': box.read('concern'),
+    'to': to,
+    'from': from,
   };
 
   await docUser1.set(json1);

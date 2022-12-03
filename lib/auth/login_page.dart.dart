@@ -109,7 +109,7 @@ class LoginPage extends StatelessWidget {
                           email: email, password: password);
 
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const HomeScreen()));
+                          builder: (context) => HomeScreen()));
                     } catch (e) {
                       showDialog(
                           context: context,
