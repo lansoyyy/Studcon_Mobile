@@ -168,11 +168,11 @@ class _SignupPageState extends State<SignupPage> {
                     items: [
                       DropdownMenuItem(
                         onTap: () {
-                          course = "IT";
+                          course = "Automotive";
                         },
                         child: Center(
                             child: Row(children: const [
-                          Text("IT",
+                          Text("Automotive",
                               style: TextStyle(
                                 fontFamily: 'QRegular',
                                 color: Colors.black,
@@ -182,11 +182,11 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       DropdownMenuItem(
                         onTap: () {
-                          course = "Nursing";
+                          course = "Food Technology";
                         },
                         child: Center(
                             child: Row(children: const [
-                          Text("Nursing",
+                          Text("Food Technology",
                               style: TextStyle(
                                 fontFamily: 'QRegular',
                                 color: Colors.black,
@@ -196,11 +196,11 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       DropdownMenuItem(
                         onTap: () {
-                          course = "Educ";
+                          course = "Electronic Technology";
                         },
                         child: Center(
                             child: Row(children: const [
-                          Text("Educ",
+                          Text("Electronic Technology",
                               style: TextStyle(
                                 fontFamily: 'QRegular',
                                 color: Colors.black,
@@ -210,7 +210,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       DropdownMenuItem(
                         onTap: () {
-                          course = "Public Ad";
+                          course = "Entertainment and\nMultimedia Computing";
                         },
                         child: Center(
                             child: Row(children: const [
@@ -221,20 +221,6 @@ class _SignupPageState extends State<SignupPage> {
                               ))
                         ])),
                         value: 4,
-                      ),
-                      DropdownMenuItem(
-                        onTap: () {
-                          course = "Hotel Management";
-                        },
-                        child: Center(
-                            child: Row(children: const [
-                          Text("Hotel Management",
-                              style: TextStyle(
-                                fontFamily: 'QRegular',
-                                color: Colors.black,
-                              ))
-                        ])),
-                        value: 5,
                       ),
                     ],
                     onChanged: (value) {

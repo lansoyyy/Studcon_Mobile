@@ -378,10 +378,6 @@ class SearchMessages extends SearchDelegate {
                           }
                         }
                       },
-                      subtitle: TextRegular(
-                          text: 'IT Department',
-                          fontSize: 10,
-                          color: Colors.grey),
                       title: TextRegular(
                           text: data.docs[index]['first_name'] +
                               ' ' +
