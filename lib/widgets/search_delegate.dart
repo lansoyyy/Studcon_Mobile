@@ -3,10 +3,13 @@ import 'package:consultation_system_mobile/screens/message_screen/message_screen
 import 'package:consultation_system_mobile/services/providers.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart' show DateFormat, toBeginningOfSentenceCase;
+
+import '../services/cloud_function/add_concern.dart';
 
 class SearchMessages extends SearchDelegate {
   @override
@@ -61,6 +64,12 @@ class SearchMessages extends SearchDelegate {
 
     print(tdata);
 
+    late String myName;
+    late String myEmail;
+    late String myCourse;
+    late String myYear;
+    late String myProfile;
+
     // TODO: implement buildSuggestions
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -93,7 +102,7 @@ class SearchMessages extends SearchDelegate {
                 return Consumer(
                   builder: ((context, ref, child) {
                     return ListTile(
-                      onTap: () {
+                      onTap: () async {
                         if (data.docs[index]['status'] == 'Inactive') {
                           showDialog(
                               context: context,
@@ -167,7 +176,33 @@ class SearchMessages extends SearchDelegate {
                                                   text: 'Grades',
                                                   fontSize: 12,
                                                   color: Colors.black),
-                                              onPressed: () {
+                                              onPressed: () async {
+                                                var collection =
+                                                    FirebaseFirestore.instance
+                                                        .collection('Users')
+                                                        .where('id',
+                                                            isEqualTo:
+                                                                FirebaseAuth
+                                                                    .instance
+                                                                    .currentUser!
+                                                                    .uid);
+                                                var querySnapshot =
+                                                    await collection.get();
+
+                                                for (var queryDocumentSnapshot
+                                                    in querySnapshot.docs) {
+                                                  Map<String, dynamic> data =
+                                                      queryDocumentSnapshot
+                                                          .data();
+
+                                                  addConcern(
+                                                      data['name'],
+                                                      data['course'],
+                                                      data['yearLevel'],
+                                                      data['email'],
+                                                      data['profilePicture']);
+                                                }
+
                                                 Navigator.of(context).pop();
                                                 box.write('concern', 'Grades');
                                                 ref
@@ -192,7 +227,32 @@ class SearchMessages extends SearchDelegate {
                                                   text: 'Attendance',
                                                   fontSize: 12,
                                                   color: Colors.black),
-                                              onPressed: () {
+                                              onPressed: () async {
+                                                var collection =
+                                                    FirebaseFirestore.instance
+                                                        .collection('Users')
+                                                        .where('id',
+                                                            isEqualTo:
+                                                                FirebaseAuth
+                                                                    .instance
+                                                                    .currentUser!
+                                                                    .uid);
+                                                var querySnapshot =
+                                                    await collection.get();
+
+                                                for (var queryDocumentSnapshot
+                                                    in querySnapshot.docs) {
+                                                  Map<String, dynamic> data =
+                                                      queryDocumentSnapshot
+                                                          .data();
+
+                                                  addConcern(
+                                                      data['name'],
+                                                      data['course'],
+                                                      data['yearLevel'],
+                                                      data['email'],
+                                                      data['profilePicture']);
+                                                }
                                                 Navigator.of(context).pop();
                                                 box.write(
                                                     'concern', 'Attendance');
@@ -218,7 +278,32 @@ class SearchMessages extends SearchDelegate {
                                                   text: 'Requirements',
                                                   fontSize: 12,
                                                   color: Colors.black),
-                                              onPressed: () {
+                                              onPressed: () async {
+                                                var collection =
+                                                    FirebaseFirestore.instance
+                                                        .collection('Users')
+                                                        .where('id',
+                                                            isEqualTo:
+                                                                FirebaseAuth
+                                                                    .instance
+                                                                    .currentUser!
+                                                                    .uid);
+                                                var querySnapshot =
+                                                    await collection.get();
+
+                                                for (var queryDocumentSnapshot
+                                                    in querySnapshot.docs) {
+                                                  Map<String, dynamic> data =
+                                                      queryDocumentSnapshot
+                                                          .data();
+
+                                                  addConcern(
+                                                      data['name'],
+                                                      data['course'],
+                                                      data['yearLevel'],
+                                                      data['email'],
+                                                      data['profilePicture']);
+                                                }
                                                 Navigator.of(context).pop();
                                                 box.write(
                                                     'concern', 'Requirements');
@@ -244,7 +329,32 @@ class SearchMessages extends SearchDelegate {
                                                   text: 'Others',
                                                   fontSize: 12,
                                                   color: Colors.black),
-                                              onPressed: () {
+                                              onPressed: () async {
+                                                var collection =
+                                                    FirebaseFirestore.instance
+                                                        .collection('Users')
+                                                        .where('id',
+                                                            isEqualTo:
+                                                                FirebaseAuth
+                                                                    .instance
+                                                                    .currentUser!
+                                                                    .uid);
+                                                var querySnapshot =
+                                                    await collection.get();
+
+                                                for (var queryDocumentSnapshot
+                                                    in querySnapshot.docs) {
+                                                  Map<String, dynamic> data =
+                                                      queryDocumentSnapshot
+                                                          .data();
+
+                                                  addConcern(
+                                                      data['name'],
+                                                      data['course'],
+                                                      data['yearLevel'],
+                                                      data['email'],
+                                                      data['profilePicture']);
+                                                }
                                                 Navigator.of(context).pop();
                                                 box.write('concern', 'Others');
                                                 ref

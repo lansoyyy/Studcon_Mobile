@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../services/cloud_function/add_concern.dart';
-
 class MessageScreen extends ConsumerStatefulWidget {
   @override
   ConsumerState<MessageScreen> createState() => _HomeScreenState();
@@ -88,50 +86,6 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
         backgroundColor: primary,
         title: TextRegular(text: name, fontSize: 18, color: Colors.white),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        content: const Text(
-                          'Are you sure you want to mark this concern as solved?',
-                          style: TextStyle(fontFamily: 'QRegular'),
-                        ),
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () => Navigator.of(context).pop(true),
-                            child: const Text(
-                              'Close',
-                              style: TextStyle(
-                                  fontFamily: 'QRegular',
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          FlatButton(
-                            onPressed: () async {
-                              FirebaseFirestore.instance
-                                  .collection('Concerns')
-                                  .doc(FirebaseAuth.instance.currentUser!.uid)
-                                  .update({
-                                'type': 'Solved',
-                              });
-
-                              Navigator.of(context).pop(true);
-                            },
-                            child: const Text(
-                              'Continue',
-                              style: TextStyle(
-                                  fontFamily: 'QRegular',
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ));
-            },
-            icon: const Icon(Icons.check_circle_outline),
-          )
-        ],
       ),
       body: Column(
         children: [
@@ -254,8 +208,6 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                               myName,
                               myEmail,
                               ref.watch(instructorIdProvider.notifier).state);
-                          addConcern(
-                              myName, myCourse, myYear, myEmail, myProfile);
 
                           messageController.clear();
                         },
