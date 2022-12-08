@@ -178,7 +178,7 @@ class _SignupPageState extends State<SignupPage> {
                                 color: Colors.black,
                               ))
                         ])),
-                        value: 1,
+                        value: 0,
                       ),
                       DropdownMenuItem(
                         onTap: () {
@@ -192,7 +192,7 @@ class _SignupPageState extends State<SignupPage> {
                                 color: Colors.black,
                               ))
                         ])),
-                        value: 2,
+                        value: 1,
                       ),
                       DropdownMenuItem(
                         onTap: () {
@@ -206,7 +206,7 @@ class _SignupPageState extends State<SignupPage> {
                                 color: Colors.black,
                               ))
                         ])),
-                        value: 3,
+                        value: 2,
                       ),
                       DropdownMenuItem(
                         onTap: () {
@@ -220,7 +220,7 @@ class _SignupPageState extends State<SignupPage> {
                                 color: Colors.black,
                               ))
                         ])),
-                        value: 4,
+                        value: 3,
                       ),
                       DropdownMenuItem(
                         onTap: () {
@@ -234,7 +234,7 @@ class _SignupPageState extends State<SignupPage> {
                                 color: Colors.black,
                               ))
                         ])),
-                        value: 5,
+                        value: 4,
                       ),
                     ],
                     onChanged: (value) {
