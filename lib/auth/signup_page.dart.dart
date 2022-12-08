@@ -214,13 +214,27 @@ class _SignupPageState extends State<SignupPage> {
                         },
                         child: Center(
                             child: Row(children: const [
-                          Text("Public Ad",
+                          Text("Entertainment and\nMultimedia Computing",
                               style: TextStyle(
                                 fontFamily: 'QRegular',
                                 color: Colors.black,
                               ))
                         ])),
                         value: 4,
+                      ),
+                      DropdownMenuItem(
+                        onTap: () {
+                          course = "Information Technology";
+                        },
+                        child: Center(
+                            child: Row(children: const [
+                          Text("Information Technology",
+                              style: TextStyle(
+                                fontFamily: 'QRegular',
+                                color: Colors.black,
+                              ))
+                        ])),
+                        value: 5,
                       ),
                     ],
                     onChanged: (value) {

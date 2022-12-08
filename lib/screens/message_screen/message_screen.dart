@@ -27,6 +27,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
   }
 
   late String instructorProfile = '';
+  late int to = 0;
+  late int from = 0;
 
   getData() async {
     // Use provider
@@ -42,6 +44,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
           name = data['first_name'] + ' ' + data['sur_name'];
           email = data['email'];
           instructorProfile = data['profilePicture'];
+          to = data['to'];
+          from = data['from'];
         }
       });
     }
@@ -196,8 +200,9 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                               myName,
                               myEmail,
                               ref.watch(instructorIdProvider.notifier).state,
-                              box.read('to'),
-                              box.read('from'));
+                              to,
+                              from);
+
                           addMessage2(
                               myYear,
                               myProfile,
