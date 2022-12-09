@@ -1,6 +1,5 @@
 import 'package:consultation_system_mobile/auth/signup_page.dart.dart';
 import 'package:consultation_system_mobile/screens/home_screen.dart';
-import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/button_widget.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,21 +14,12 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[300],
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(
-                height: 150,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: TextBold(text: 'STUDCON', fontSize: 52, color: primary),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
+              Image.asset('assets/images/logo.png'),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: TextFormField(
