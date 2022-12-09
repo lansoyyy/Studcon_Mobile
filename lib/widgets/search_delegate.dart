@@ -384,6 +384,10 @@ class SearchMessages extends SearchDelegate {
                               data.docs[index]['sur_name'],
                           fontSize: 12,
                           color: Colors.black),
+                      subtitle: TextRegular(
+                          text: data.docs[index]['department'],
+                          fontSize: 10,
+                          color: Colors.grey),
                       trailing: const Icon(Icons.arrow_right),
                       tileColor: Colors.white,
                       leading: Padding(
