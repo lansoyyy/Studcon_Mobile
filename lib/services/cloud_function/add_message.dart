@@ -43,6 +43,7 @@ Future addMessage(
     'myProfile': 'Unread',
     'id': docUser.id,
     'dateTime': DateTime.now(),
+    'concernId': FirebaseAuth.instance.currentUser!.uid
   };
 
   final json1 = {
@@ -56,6 +57,7 @@ Future addMessage(
     'concern': box.read('concern'),
     'to': to,
     'from': from,
+    'concernId': FirebaseAuth.instance.currentUser!.uid
   };
 
   await docUser1.set(json1);
@@ -96,6 +98,7 @@ Future addMessage2(
     'id': docUser.id,
     'status': 'Unread',
     'dateTime': DateTime.now(),
+    'concernId': FirebaseAuth.instance.currentUser!.uid
   };
 
   final json1 = {
@@ -107,6 +110,7 @@ Future addMessage2(
     'time': tdata,
     'status': 'Unread',
     'concern': box.read('concern'),
+    'concernId': FirebaseAuth.instance.currentUser!.uid
   };
 
   final docUser1 = FirebaseFirestore.instance
