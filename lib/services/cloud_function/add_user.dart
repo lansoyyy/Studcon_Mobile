@@ -21,7 +21,8 @@ Future addUser(
     'course': course,
     'yearLevel': yearLevel,
     'id': docUser.id,
-    'profilePicture': 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+    'profilePicture': 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+    'status': 'Active',
   };
 
   await docUser.set(json);
