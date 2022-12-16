@@ -200,7 +200,8 @@ class SearchMessages extends SearchDelegate {
                                                       data['course'],
                                                       data['yearLevel'],
                                                       data['email'],
-                                                      data['profilePicture']);
+                                                      data['profilePicture'],
+                                                      'Grades');
                                                 }
 
                                                 Navigator.of(context).pop();
@@ -251,7 +252,8 @@ class SearchMessages extends SearchDelegate {
                                                       data['course'],
                                                       data['yearLevel'],
                                                       data['email'],
-                                                      data['profilePicture']);
+                                                      data['profilePicture'],
+                                                      'Attendance');
                                                 }
                                                 Navigator.of(context).pop();
                                                 box.write(
@@ -302,7 +304,8 @@ class SearchMessages extends SearchDelegate {
                                                       data['course'],
                                                       data['yearLevel'],
                                                       data['email'],
-                                                      data['profilePicture']);
+                                                      data['profilePicture'],
+                                                      'Requirements');
                                                 }
                                                 Navigator.of(context).pop();
                                                 box.write(
@@ -353,7 +356,8 @@ class SearchMessages extends SearchDelegate {
                                                       data['course'],
                                                       data['yearLevel'],
                                                       data['email'],
-                                                      data['profilePicture']);
+                                                      data['profilePicture'],
+                                                      'Others');
                                                 }
                                                 Navigator.of(context).pop();
                                                 box.write('concern', 'Others');

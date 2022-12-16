@@ -3,13 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
-Future addConcern(
-  String name,
-  String course,
-  String yearLevel,
-  String email,
-  String profilePicture,
-) async {
+Future addConcern(String name, String course, String yearLevel, String email,
+    String profilePicture, String concern) async {
   final docUser = FirebaseFirestore.instance
       .collection('Concerns')
       .doc(FirebaseAuth.instance.currentUser!.uid);
@@ -25,7 +20,7 @@ Future addConcern(
     'course': course,
     'yearLevel': yearLevel,
     'id': docUser.id,
-    'concern': box.read('concern'),
+    'concern': concern,
     'dateTime': DateTime.now(),
     'time': tdata,
     'type': 'Unsolved'
