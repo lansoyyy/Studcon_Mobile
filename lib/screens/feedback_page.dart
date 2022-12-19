@@ -4,8 +4,10 @@ import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/appbar_widget.dart';
 import 'package:consultation_system_mobile/widgets/button_widget.dart';
 import 'package:consultation_system_mobile/widgets/drawer_widget.dart';
+import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class FeedbackPage extends StatefulWidget {
@@ -21,6 +23,10 @@ class _FeedbackPageState extends State<FeedbackPage> {
   late String feedback = '';
 
   late bool hasContent = false;
+
+  late double rating = 5.00;
+
+  late String userRate = 'Excellent';
 
   showToast() {
     Fluttertoast.showToast(
@@ -56,7 +62,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
             }
 
             dynamic data = snapshot.data;
-            return Center(
+            return SingleChildScrollView(
               child: Column(
                 children: [
                   const SizedBox(
@@ -72,6 +78,10 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         if (_input != '') {
                           setState(() {
                             hasContent = true;
+                          });
+                        } else if (_input == '') {
+                          setState(() {
+                            feedback = '';
                           });
                         }
                       },
@@ -102,6 +112,59 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   const SizedBox(
                     height: 20,
                   ),
+                  Visibility(
+                    visible: hasContent,
+                    child: TextBold(
+                        text: 'Rate your experience',
+                        fontSize: 14,
+                        color: Colors.black),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Visibility(
+                    visible: hasContent,
+                    child: RatingBar.builder(
+                      initialRating: 5,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (_rating) {
+                        setState(() {
+                          rating = _rating;
+
+                          if (_rating == 5) {
+                            userRate = 'Excellent';
+                          } else if (_rating == 4) {
+                            userRate = 'Very Good';
+                          }
+                          if (_rating == 3) {
+                            userRate = 'Good';
+                          }
+                          if (_rating == 2) {
+                            userRate = 'Fair';
+                          }
+                          if (_rating == 1) {
+                            userRate = 'Bad';
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Visibility(
+                    visible: hasContent,
+                    child: TextBold(
+                        text: userRate, fontSize: 18, color: Colors.amber),
+                  ),
                   const SizedBox(
                     height: 50,
                   ),
@@ -113,7 +176,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
                             data['name'],
                             data['course'],
                             data['yearLevel'],
-                            data['email']);
+                            data['email'],
+                            rating);
                         showToast();
                         setState(() {
                           feedback = '';

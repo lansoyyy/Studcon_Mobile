@@ -1,14 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-Future addFeedback(
-  String profilePicture,
-  String feedback,
-  String name,
-  String course,
-  String yearLevel,
-  String email,
-) async {
+Future addFeedback(String profilePicture, String feedback, String name,
+    String course, String yearLevel, String email, double rating) async {
   final docUser = FirebaseFirestore.instance.collection('Feedbacks').doc();
 
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
@@ -23,6 +17,7 @@ Future addFeedback(
     'feedback': feedback,
     'dateTime': DateTime.now(),
     'time': tdata,
+    'rating': rating,
   };
 
   await docUser.set(json);
