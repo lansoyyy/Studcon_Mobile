@@ -162,6 +162,9 @@ class SearchMessages extends SearchDelegate {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
                                           TextBold(
                                               text: 'Type of concern',
                                               fontSize: 14,
@@ -169,211 +172,114 @@ class SearchMessages extends SearchDelegate {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          MaterialButton(
-                                              color: Colors.white,
-                                              minWidth: 200,
-                                              child: TextRegular(
-                                                  text: 'Grades',
-                                                  fontSize: 12,
-                                                  color: Colors.black),
-                                              onPressed: () async {
-                                                var collection =
-                                                    FirebaseFirestore.instance
-                                                        .collection('Users')
-                                                        .where('id',
-                                                            isEqualTo:
-                                                                FirebaseAuth
-                                                                    .instance
-                                                                    .currentUser!
-                                                                    .uid);
-                                                var querySnapshot =
-                                                    await collection.get();
-
-                                                for (var queryDocumentSnapshot
-                                                    in querySnapshot.docs) {
-                                                  Map<String, dynamic> data =
-                                                      queryDocumentSnapshot
-                                                          .data();
-
-                                                  addConcern(
-                                                      data['name'],
-                                                      data['course'],
-                                                      data['yearLevel'],
-                                                      data['email'],
-                                                      data['profilePicture'],
-                                                      'Grades');
+                                          StreamBuilder<QuerySnapshot>(
+                                              stream: FirebaseFirestore.instance
+                                                  .collection('Categ')
+                                                  .snapshots(),
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot<QuerySnapshot>
+                                                      snapshot) {
+                                                if (snapshot.hasError) {
+                                                  print('error');
+                                                  return const Center(
+                                                      child: Text('Error'));
+                                                }
+                                                if (snapshot.connectionState ==
+                                                    ConnectionState.waiting) {
+                                                  print('waiting');
+                                                  return const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 50),
+                                                    child: Center(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                      color: Colors.black,
+                                                    )),
+                                                  );
                                                 }
 
-                                                Navigator.of(context).pop();
-                                                box.write('concern', 'Grades');
-                                                ref
-                                                        .read(
-                                                            instructorIdProvider
-                                                                .notifier)
-                                                        .state =
-                                                    data.docs[index].id;
-                                                Navigator.of(context)
-                                                    .pushReplacement(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                MessageScreen()));
+                                                final data12 =
+                                                    snapshot.requireData;
+                                                return Expanded(
+                                                  child: SizedBox(
+                                                    child: ListView.builder(
+                                                        itemCount: snapshot
+                                                                .data?.size ??
+                                                            0,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 20,
+                                                                    right: 20),
+                                                            child:
+                                                                MaterialButton(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    minWidth:
+                                                                        200,
+                                                                    child: TextRegular(
+                                                                        text: data12.docs[index]
+                                                                            [
+                                                                            'name'],
+                                                                        fontSize:
+                                                                            12,
+                                                                        color: Colors
+                                                                            .black),
+                                                                    onPressed:
+                                                                        () async {
+                                                                      var collection = FirebaseFirestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'Users')
+                                                                          .where(
+                                                                              'id',
+                                                                              isEqualTo: FirebaseAuth.instance.currentUser!.uid);
+                                                                      var querySnapshot =
+                                                                          await collection
+                                                                              .get();
+
+                                                                      for (var queryDocumentSnapshot
+                                                                          in querySnapshot
+                                                                              .docs) {
+                                                                        Map<String,
+                                                                                dynamic>
+                                                                            data =
+                                                                            queryDocumentSnapshot.data();
+
+                                                                        addConcern(
+                                                                            data['name'],
+                                                                            data['course'],
+                                                                            data['yearLevel'],
+                                                                            data['email'],
+                                                                            data['profilePicture'],
+                                                                            data12.docs[index]['name']);
+                                                                      }
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                      box.write(
+                                                                          'concern',
+                                                                          'Requirements');
+                                                                      ref.read(instructorIdProvider.notifier).state = data
+                                                                          .docs[
+                                                                              index]
+                                                                          .id;
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pushReplacement(
+                                                                              MaterialPageRoute(builder: (context) => MessageScreen()));
+                                                                    }),
+                                                          );
+                                                        }),
+                                                  ),
+                                                );
                                               }),
                                           const SizedBox(
-                                            height: 5,
+                                            height: 10,
                                           ),
-                                          MaterialButton(
-                                              color: Colors.white,
-                                              minWidth: 200,
-                                              child: TextRegular(
-                                                  text: 'Attendance',
-                                                  fontSize: 12,
-                                                  color: Colors.black),
-                                              onPressed: () async {
-                                                var collection =
-                                                    FirebaseFirestore.instance
-                                                        .collection('Users')
-                                                        .where('id',
-                                                            isEqualTo:
-                                                                FirebaseAuth
-                                                                    .instance
-                                                                    .currentUser!
-                                                                    .uid);
-                                                var querySnapshot =
-                                                    await collection.get();
-
-                                                for (var queryDocumentSnapshot
-                                                    in querySnapshot.docs) {
-                                                  Map<String, dynamic> data =
-                                                      queryDocumentSnapshot
-                                                          .data();
-
-                                                  addConcern(
-                                                      data['name'],
-                                                      data['course'],
-                                                      data['yearLevel'],
-                                                      data['email'],
-                                                      data['profilePicture'],
-                                                      'Attendance');
-                                                }
-                                                Navigator.of(context).pop();
-                                                box.write(
-                                                    'concern', 'Attendance');
-                                                ref
-                                                        .read(
-                                                            instructorIdProvider
-                                                                .notifier)
-                                                        .state =
-                                                    data.docs[index].id;
-                                                Navigator.of(context)
-                                                    .pushReplacement(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                MessageScreen()));
-                                              }),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          MaterialButton(
-                                              color: Colors.white,
-                                              minWidth: 200,
-                                              child: TextRegular(
-                                                  text: 'Requirements',
-                                                  fontSize: 12,
-                                                  color: Colors.black),
-                                              onPressed: () async {
-                                                var collection =
-                                                    FirebaseFirestore.instance
-                                                        .collection('Users')
-                                                        .where('id',
-                                                            isEqualTo:
-                                                                FirebaseAuth
-                                                                    .instance
-                                                                    .currentUser!
-                                                                    .uid);
-                                                var querySnapshot =
-                                                    await collection.get();
-
-                                                for (var queryDocumentSnapshot
-                                                    in querySnapshot.docs) {
-                                                  Map<String, dynamic> data =
-                                                      queryDocumentSnapshot
-                                                          .data();
-
-                                                  addConcern(
-                                                      data['name'],
-                                                      data['course'],
-                                                      data['yearLevel'],
-                                                      data['email'],
-                                                      data['profilePicture'],
-                                                      'Requirements');
-                                                }
-                                                Navigator.of(context).pop();
-                                                box.write(
-                                                    'concern', 'Requirements');
-                                                ref
-                                                        .read(
-                                                            instructorIdProvider
-                                                                .notifier)
-                                                        .state =
-                                                    data.docs[index].id;
-                                                Navigator.of(context)
-                                                    .pushReplacement(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                MessageScreen()));
-                                              }),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          MaterialButton(
-                                              color: Colors.white,
-                                              minWidth: 200,
-                                              child: TextRegular(
-                                                  text: 'Others',
-                                                  fontSize: 12,
-                                                  color: Colors.black),
-                                              onPressed: () async {
-                                                var collection =
-                                                    FirebaseFirestore.instance
-                                                        .collection('Users')
-                                                        .where('id',
-                                                            isEqualTo:
-                                                                FirebaseAuth
-                                                                    .instance
-                                                                    .currentUser!
-                                                                    .uid);
-                                                var querySnapshot =
-                                                    await collection.get();
-
-                                                for (var queryDocumentSnapshot
-                                                    in querySnapshot.docs) {
-                                                  Map<String, dynamic> data =
-                                                      queryDocumentSnapshot
-                                                          .data();
-
-                                                  addConcern(
-                                                      data['name'],
-                                                      data['course'],
-                                                      data['yearLevel'],
-                                                      data['email'],
-                                                      data['profilePicture'],
-                                                      'Others');
-                                                }
-                                                Navigator.of(context).pop();
-                                                box.write('concern', 'Others');
-                                                ref
-                                                        .read(
-                                                            instructorIdProvider
-                                                                .notifier)
-                                                        .state =
-                                                    data.docs[index].id;
-
-                                                Navigator.of(context)
-                                                    .pushReplacement(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                MessageScreen()));
-                                              }),
                                         ],
                                       ),
                                     ),
