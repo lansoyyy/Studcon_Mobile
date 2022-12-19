@@ -8,10 +8,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class FeedbackPage extends StatelessWidget {
-  FeedbackPage({Key? key}) : super(key: key);
+class FeedbackPage extends StatefulWidget {
+  const FeedbackPage({Key? key}) : super(key: key);
 
+  @override
+  State<FeedbackPage> createState() => _FeedbackPageState();
+}
+
+class _FeedbackPageState extends State<FeedbackPage> {
   final feedbackController = TextEditingController();
+
+  late String feedback = '';
+
+  late bool hasContent = false;
 
   showToast() {
     Fluttertoast.showToast(
@@ -57,7 +66,15 @@ class FeedbackPage extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: TextFormField(
                       maxLines: 8,
-                      controller: feedbackController,
+                      onChanged: (_input) {
+                        feedback = _input;
+
+                        if (_input != '') {
+                          setState(() {
+                            hasContent = true;
+                          });
+                        }
+                      },
                       style: const TextStyle(
                           color: Colors.black, fontFamily: 'QRegular'),
                       decoration: InputDecoration(
@@ -83,19 +100,25 @@ class FeedbackPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
+                    height: 20,
+                  ),
+                  const SizedBox(
                     height: 50,
                   ),
                   ButtonWidget(
                       onPressed: () {
                         addFeedback(
                             data['profilePicture'],
-                            feedbackController.text,
+                            feedback,
                             data['name'],
                             data['course'],
                             data['yearLevel'],
                             data['email']);
                         showToast();
-                        feedbackController.clear();
+                        setState(() {
+                          feedback = '';
+                          hasContent = false;
+                        });
                       },
                       text: 'Submit Feedback'),
                 ],
