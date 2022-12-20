@@ -64,6 +64,12 @@ class SearchMessages extends SearchDelegate {
 
     print(tdata);
 
+    late String myName;
+    late String myEmail;
+    late String myCourse;
+    late String myYear;
+    late String myProfile;
+
     // TODO: implement buildSuggestions
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -92,12 +98,12 @@ class SearchMessages extends SearchDelegate {
           final data = snapshot.requireData;
           return ListView.builder(
               itemCount: snapshot.data?.size ?? 0,
-              itemBuilder: (context, index) {
+              itemBuilder: (context, index99) {
                 return Consumer(
                   builder: ((context, ref, child) {
                     return ListTile(
                       onTap: () async {
-                        if (data.docs[index]['status'] == 'Inactive') {
+                        if (data.docs[index99]['status'] == 'Inactive') {
                           showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
@@ -119,8 +125,8 @@ class SearchMessages extends SearchDelegate {
                                     ],
                                   ));
                         } else {
-                          if (int.parse(tdata) <= data.docs[index]['from'] &&
-                              int.parse(tdata) >= data.docs[index]['to']) {
+                          if (int.parse(tdata) <= data.docs[index99]['from'] &&
+                              int.parse(tdata) >= data.docs[index99]['to']) {
                             showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
@@ -200,8 +206,8 @@ class SearchMessages extends SearchDelegate {
                                                         itemCount: snapshot
                                                                 .data?.size ??
                                                             0,
-                                                        itemBuilder:
-                                                            (context, index) {
+                                                        itemBuilder: (context,
+                                                            index1111) {
                                                           return Padding(
                                                             padding:
                                                                 const EdgeInsets
@@ -215,7 +221,7 @@ class SearchMessages extends SearchDelegate {
                                                                     minWidth:
                                                                         200,
                                                                     child: TextRegular(
-                                                                        text: data12.docs[index]
+                                                                        text: data12.docs[index1111]
                                                                             [
                                                                             'name'],
                                                                         fontSize:
@@ -249,7 +255,7 @@ class SearchMessages extends SearchDelegate {
                                                                             data['yearLevel'],
                                                                             data['email'],
                                                                             data['profilePicture'],
-                                                                            data12.docs[index]['name']);
+                                                                            data12.docs[index1111]['name']);
                                                                       }
                                                                       Navigator.of(
                                                                               context)
@@ -257,9 +263,10 @@ class SearchMessages extends SearchDelegate {
                                                                       box.write(
                                                                           'concern',
                                                                           'Requirements');
-                                                                      ref.read(instructorIdProvider.notifier).state ==
-                                                                          data.docs[index]
-                                                                              .id;
+                                                                      ref.read(instructorIdProvider.notifier).state = data
+                                                                          .docs[
+                                                                              index99]
+                                                                          .id;
                                                                       Navigator.of(
                                                                               context)
                                                                           .pushReplacement(
@@ -282,13 +289,13 @@ class SearchMessages extends SearchDelegate {
                         }
                       },
                       title: TextRegular(
-                          text: data.docs[index]['first_name'] +
+                          text: data.docs[index99]['first_name'] +
                               ' ' +
-                              data.docs[index]['sur_name'],
+                              data.docs[index99]['sur_name'],
                           fontSize: 12,
                           color: Colors.black),
                       subtitle: TextRegular(
-                          text: data.docs[index]['department'],
+                          text: data.docs[index99]['department'],
                           fontSize: 10,
                           color: Colors.grey),
                       trailing: const Icon(Icons.arrow_right),
@@ -300,7 +307,7 @@ class SearchMessages extends SearchDelegate {
                           maxRadius: 25,
                           backgroundColor: primary,
                           child: TextBold(
-                              text: data.docs[index]['first_name'][0],
+                              text: data.docs[index99]['first_name'][0],
                               fontSize: 18,
                               color: Colors.white),
                         ),

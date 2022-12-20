@@ -82,6 +82,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(ref.read(instructorIdProvider.notifier).state + ' my provider');
+    print(myName);
     return Scaffold(
       backgroundColor: greyAccent,
       appBar: AppBar(
