@@ -126,49 +126,45 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                     child: ListView.builder(
                       itemCount: snapshot.data?.size ?? 0,
                       itemBuilder: ((context, index) {
-                        return Container(
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: TextRegular(
-                                      text: data.docs[index]['time'],
-                                      fontSize: 12,
-                                      color: Colors.grey),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20, right: 20),
-                                  child: Text(
-                                    data.docs[index]['message'],
-                                    style: const TextStyle(
-                                      fontFamily: 'QRegular',
-                                      fontSize: 14,
-                                      color: Colors.black,
+                        return Row(
+                          children: [
+                            Container(
+                              height: 60,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topRight,
+                                      child: TextRegular(
+                                          text: data.docs[index]['time'],
+                                          fontSize: 12,
+                                          color: Colors.grey),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 20, right: 20),
+                                      child: Text(
+                                        data.docs[index]['message'],
+                                        style: const TextStyle(
+                                          fontFamily: 'QRegular',
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                ListTile(
-                                  title: TextBold(
-                                      text: data.docs[index]['name'],
-                                      fontSize: 12,
-                                      color: Colors.black),
-                                  subtitle: TextRegular(
-                                      text: data.docs[index]['course'],
-                                      fontSize: 10,
-                                      color: Colors.grey),
-                                ),
-                              ],
+                              ),
+                              margin: const EdgeInsets.fromLTRB(100, 5, 20, 5),
+                              width: 230,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white),
                             ),
-                          ),
-                          margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                          width: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.white),
+                          ],
                         );
                       }),
                     ),
