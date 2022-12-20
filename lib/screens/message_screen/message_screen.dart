@@ -98,8 +98,8 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
           ),
           StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection(FirebaseAuth.instance.currentUser!.uid)
-                  .doc(ref.read(instructorIdProvider.notifier).state)
+                  .collection(ref.read(instructorIdProvider.notifier).state)
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
                   .collection('Messages')
                   .orderBy('dateTime')
                   .snapshots(),
