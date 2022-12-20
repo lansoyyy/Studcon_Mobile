@@ -64,12 +64,6 @@ class SearchMessages extends SearchDelegate {
 
     print(tdata);
 
-    late String myName;
-    late String myEmail;
-    late String myCourse;
-    late String myYear;
-    late String myProfile;
-
     // TODO: implement buildSuggestions
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -263,10 +257,9 @@ class SearchMessages extends SearchDelegate {
                                                                       box.write(
                                                                           'concern',
                                                                           'Requirements');
-                                                                      ref.read(instructorIdProvider.notifier).state = data
-                                                                          .docs[
-                                                                              index]
-                                                                          .id;
+                                                                      ref.read(instructorIdProvider.notifier).state ==
+                                                                          data.docs[index]
+                                                                              .id;
                                                                       Navigator.of(
                                                                               context)
                                                                           .pushReplacement(
@@ -305,9 +298,11 @@ class SearchMessages extends SearchDelegate {
                         child: CircleAvatar(
                           minRadius: 25,
                           maxRadius: 25,
-                          backgroundColor: greyAccent,
-                          backgroundImage:
-                              NetworkImage(data.docs[index]['profilePicture']),
+                          backgroundColor: primary,
+                          child: TextBold(
+                              text: data.docs[index]['first_name'][0],
+                              fontSize: 18,
+                              color: Colors.white),
                         ),
                       ),
                     );
