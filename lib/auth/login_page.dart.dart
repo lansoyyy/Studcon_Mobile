@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation_system_mobile/auth/signup_page.dart.dart';
+import 'package:consultation_system_mobile/screens/forgot_password.dart';
 import 'package:consultation_system_mobile/screens/home_screen.dart';
 import 'package:consultation_system_mobile/widgets/button_widget.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
@@ -62,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
                 child: TextFormField(
                   obscureText: true,
                   style: const TextStyle(
@@ -93,6 +94,24 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.black,
                       fontSize: 12.0,
                     ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ForgotPassword()));
+                    },
+                    child: TextBold(
+                        text: 'Forgot Password?',
+                        fontSize: 12,
+                        color: Colors.black),
                   ),
                 ),
               ),

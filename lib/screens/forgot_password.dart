@@ -1,3 +1,4 @@
+import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,7 +21,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     final emailField = TextFormField(
       autofocus: false,
       controller: _emailController,
-      keyboardType: TextInputType.datetime,
       validator: (value) {
         if (value!.isEmpty) {
           return ("Please Enter Your Email");
@@ -48,7 +48,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     final SendCode = Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(30),
-        color: Colors.black,
+        color: primary,
         child: MaterialButton(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
@@ -56,12 +56,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             if (_emailController.text == '') {
               Fluttertoast.showToast(msg: 'Email is needed');
             } else {
-              await (FirebaseAuth.instance
-                  .sendPasswordResetEmail(email: _emailController.text)
-                  .then((value) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
-              }));
+              try {
+                await (FirebaseAuth.instance
+                    .sendPasswordResetEmail(email: _emailController.text)
+                    .then((value) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()));
+                }));
+              } catch (e) {
+                Fluttertoast.showToast(msg: e.toString());
+              }
             }
           },
           child: const Text(
@@ -89,51 +95,49 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           },
         ),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Form(
-                key: _formkey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 180,
-                      child:
-                          Image.asset("assets/logo.png", fit: BoxFit.contain),
-                    ),
-                    const SizedBox(height: 20),
-                    emailField,
-                    const SizedBox(height: 25),
-                    SendCode,
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text("Remember Password?"),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginPage()));
-                          },
-                          child: const Text(
-                            "  SignIn",
-                            style: TextStyle(
-                                color: Color(0xFF075009),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(36.0),
+            child: Form(
+              key: _formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 180,
+                    child: Image.asset("assets/images/logo.png",
+                        fit: BoxFit.contain),
+                  ),
+                  const SizedBox(height: 20),
+                  emailField,
+                  const SizedBox(height: 25),
+                  SendCode,
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text("Remember Password?"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                        },
+                        child: const Text(
+                          "   Login",
+                          style: TextStyle(
+                              color: primary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
