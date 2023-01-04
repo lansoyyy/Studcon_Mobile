@@ -6,6 +6,7 @@ import 'package:consultation_system_mobile/widgets/button_widget.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -127,8 +128,9 @@ class _LoginPageState extends State<LoginPage> {
                           .where('email', isEqualTo: email);
 
                       var querySnapshot = await collection.get();
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: email, password: password);
+                      var user = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: email, password: password);
 
                       setState(() {
                         for (var queryDocumentSnapshot in querySnapshot.docs) {
@@ -159,8 +161,13 @@ class _LoginPageState extends State<LoginPage> {
                                 ));
                         await FirebaseAuth.instance.signOut();
                       } else {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => HomeScreen()));
+                        if (user.user!.emailVerified == true) {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
+                        } else {
+                          Fluttertoast.showToast(msg: 'Please verify your email!');
+                        }
                       }
                     } catch (e) {
                       showDialog(

@@ -3,6 +3,7 @@ import 'package:consultation_system_mobile/widgets/button_widget.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'login_page.dart.dart';
 
@@ -400,6 +401,13 @@ class _SignupPageState extends State<SignupPage> {
                       await FirebaseAuth.instance
                           .createUserWithEmailAndPassword(
                               email: email, password: password);
+
+                      var user = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: email, password: password);
+
+                      user.user!.sendEmailVerification();
+
                       addUser(name, contactNumber, address, course,
                           productCategory, email);
                       showDialog(
@@ -428,11 +436,16 @@ class _SignupPageState extends State<SignupPage> {
                                       ),
                                       ButtonWidget(
                                           onPressed: () async {
+                                            Fluttertoast.showToast(
+                                                toastLength: Toast.LENGTH_LONG,
+                                                msg:
+                                                    'Verification was to $email');
+
                                             Navigator.of(context)
                                                 .pushReplacement(
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            LoginPage()));
+                                                            const LoginPage()));
                                           },
                                           text: 'Continue'),
                                     ],
