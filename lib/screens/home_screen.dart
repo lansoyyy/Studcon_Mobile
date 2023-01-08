@@ -22,7 +22,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: greyAccent,
+      backgroundColor: const Color(0xffF5F7FB),
       drawer: const DrawerWidget(),
       appBar: AppbarWidget('Messages'),
       body: Center(
@@ -35,24 +35,23 @@ class HomeScreen extends ConsumerWidget {
                   delegate: SearchMessages(),
                 );
               },
-              child: Container(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  child: Container(
-                    child: ListTile(
-                      leading: const Icon(Icons.search, color: Colors.black),
-                      title: TextRegular(
-                          text: 'Search instructor',
-                          fontSize: 12,
-                          color: Colors.black),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                child: Container(
+                  child: ListTile(
+                    trailing: const Icon(Icons.search, color: Colors.black),
+                    title: TextRegular(
+                        text: 'Search bar', fontSize: 12, color: Colors.grey),
+                  ),
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 0.5,
                     ),
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: greyAccent,
-                    ),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
                   ),
                 ),
               ),

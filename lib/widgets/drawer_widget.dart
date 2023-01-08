@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation_system_mobile/auth/login_page.dart.dart';
-import 'package:consultation_system_mobile/screens/feedback_page.dart';
 import 'package:consultation_system_mobile/screens/home_screen.dart';
+import 'package:consultation_system_mobile/screens/profile_page.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -113,6 +113,7 @@ class _MyDrawerState extends State<DrawerWidget> {
     return SizedBox(
       width: 220,
       child: Drawer(
+        backgroundColor: primary,
         child: ListView(
           padding: const EdgeInsets.only(top: 0),
           children: <Widget>[
@@ -156,11 +157,14 @@ class _MyDrawerState extends State<DrawerWidget> {
                   );
                 }),
             ListTile(
-              leading: const Icon(Icons.message),
+              leading: const Icon(
+                Icons.message,
+                color: Colors.white,
+              ),
               title: TextBold(
                 text: 'Messages',
                 fontSize: 12,
-                color: Colors.grey,
+                color: Colors.white,
               ),
               onTap: () {
                 Navigator.of(context).pushReplacement(
@@ -168,20 +172,29 @@ class _MyDrawerState extends State<DrawerWidget> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.person),
-              title: TextBold(
-                text: 'Profile',
-                fontSize: 12,
-                color: Colors.grey,
+              leading: const Icon(
+                Icons.person,
+                color: Colors.white,
               ),
-              onTap: () {},
+              title: TextBold(
+                text: 'Personal Information',
+                fontSize: 12,
+                color: Colors.white,
+              ),
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
+              },
             ),
             ListTile(
-              leading: const Icon(Icons.logout),
+              leading: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
               title: TextBold(
-                text: 'Logout',
+                text: 'Log out',
                 fontSize: 12,
-                color: Colors.grey,
+                color: Colors.white,
               ),
               onTap: () {
                 showDialog(
