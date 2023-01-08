@@ -36,7 +36,7 @@ class HomeScreen extends ConsumerWidget {
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 5),
                 child: Container(
                   child: ListTile(
                     trailing: const Icon(Icons.search, color: Colors.black),
@@ -55,6 +55,32 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
               ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                child: MaterialButton(
+                    height: 40,
+                    child: TextRegular(
+                        text: 'Create Message',
+                        fontSize: 12,
+                        color: Colors.white),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    minWidth: double.infinity,
+                    color: Colors.blueAccent[700],
+                    onPressed: () {
+                      showSearch(
+                        context: context,
+                        delegate: SearchMessages(),
+                      );
+                    }),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: Divider(),
             ),
             const SizedBox(
               height: 10,

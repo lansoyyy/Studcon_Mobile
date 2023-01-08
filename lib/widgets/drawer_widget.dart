@@ -156,6 +156,12 @@ class _MyDrawerState extends State<DrawerWidget> {
                     ),
                   );
                 }),
+            const Padding(
+              padding: EdgeInsets.only(left: 15, right: 15),
+              child: Divider(
+                color: Colors.white,
+              ),
+            ),
             ListTile(
               leading: const Icon(
                 Icons.message,

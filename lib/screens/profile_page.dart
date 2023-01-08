@@ -160,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           minWidth: 150,
-                          color: primary,
+                          color: Colors.blueAccent[400],
                           onPressed: () {
                             uploadPicture('gallery');
                           }),
@@ -338,7 +338,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                   minWidth: 150,
-                                  color: primary,
+                                  color: Colors.blueAccent[700],
                                   onPressed: () {
                                     FirebaseFirestore.instance
                                         .collection('Users')
