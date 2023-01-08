@@ -1,17 +1,21 @@
-import 'package:consultation_system_mobile/auth/signup_page2.dart';
+import 'package:consultation_system_mobile/services/cloud_function/add_user.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/button_widget.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+import 'login_page.dart.dart';
+
+class SignupPage2 extends StatefulWidget {
+  const SignupPage2({Key? key}) : super(key: key);
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<SignupPage2> createState() => _SignupPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _SignupPageState extends State<SignupPage2> {
   late String name;
 
   late String contactNumber;
@@ -47,13 +51,13 @@ class _SignupPageState extends State<SignupPage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.green[200]!,
+                      color: Colors.green[700]!,
                       width: 7.5,
                     ),
                   ),
                   child: Center(
                     child:
-                        TextBold(text: '1 of 2', fontSize: 18, color: primary),
+                        TextBold(text: '2 of 2', fontSize: 18, color: primary),
                   )),
             ),
             const SizedBox(height: 10),
@@ -422,8 +426,114 @@ class _SignupPageState extends State<SignupPage> {
                   padding: const EdgeInsets.only(left: 30, right: 30),
                   child: ButtonWidget(
                       onPressed: () async {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const SignupPage2()));
+                        if (email.contains('student.buksu.edu.ph')) {
+                          try {
+                            await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: email, password: password);
+
+                            var user = await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: email, password: password);
+
+                            user.user!.sendEmailVerification();
+
+                            addUser(name, contactNumber, address, course,
+                                productCategory, email);
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    child: SizedBox(
+                                        height: 300,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Icon(
+                                              Icons
+                                                  .check_circle_outline_outlined,
+                                              size: 75,
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            TextBold(
+                                                text: 'Registered Succesfully!',
+                                                fontSize: 18,
+                                                color: Colors.black),
+                                            const SizedBox(
+                                              height: 50,
+                                            ),
+                                            ButtonWidget(
+                                                onPressed: () async {
+                                                  Fluttertoast.showToast(
+                                                      toastLength:
+                                                          Toast.LENGTH_LONG,
+                                                      msg:
+                                                          'Verification was to $email');
+
+                                                  Navigator.of(context)
+                                                      .pushReplacement(
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const LoginPage()));
+                                                },
+                                                text: 'Continue'),
+                                          ],
+                                        )),
+                                  );
+                                });
+                          } catch (e) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) => AlertDialog(
+                                      content: Text(
+                                        e.toString(),
+                                        style: const TextStyle(
+                                            fontFamily: 'QRegular'),
+                                      ),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            'Close',
+                                            style: TextStyle(
+                                                fontFamily: 'QRegular',
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ],
+                                    ));
+                          }
+                        } else {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => AlertDialog(
+                                    content: const Text(
+                                      'Invalid Email\nOnly institutional email is accepted',
+                                      style: TextStyle(fontFamily: 'QRegular'),
+                                    ),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          'Close',
+                                          style: TextStyle(
+                                              fontFamily: 'QRegular',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  ));
+                        }
                       },
                       text: 'SUBMIT'),
                 ),
