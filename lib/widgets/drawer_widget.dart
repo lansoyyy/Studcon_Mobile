@@ -168,16 +168,13 @@ class _MyDrawerState extends State<DrawerWidget> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.feedback_outlined),
+              leading: const Icon(Icons.person),
               title: TextBold(
-                text: 'Feedback',
+                text: 'Profile',
                 fontSize: 12,
                 color: Colors.grey,
               ),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => FeedbackPage()));
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.logout),
@@ -215,7 +212,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                                 await FirebaseAuth.instance.signOut();
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
-                                        builder: (context) => LoginPage()));
+                                        builder: (context) =>
+                                            const LoginPage()));
                               },
                               child: const Text(
                                 'Continue',
