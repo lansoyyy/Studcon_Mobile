@@ -2,6 +2,7 @@ import 'package:consultation_system_mobile/auth/login_page.dart.dart';
 import 'package:consultation_system_mobile/firebase_options.dart';
 
 import 'package:consultation_system_mobile/screens/home_screen.dart';
+import 'package:consultation_system_mobile/screens/landing_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               return HomeScreen();
             } else {
-              return LoginPage();
+              return const LandingScreen();
             }
           }),
     );
