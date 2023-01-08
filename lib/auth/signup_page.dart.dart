@@ -423,7 +423,14 @@ class _SignupPageState extends State<SignupPage> {
                   child: ButtonWidget(
                       onPressed: () async {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const SignupPage2()));
+                            builder: (context) => SignupPage2(
+                                name: name,
+                                contactNumber: contactNumber,
+                                address: address,
+                                email: email,
+                                password: password,
+                                productCategory: productCategory,
+                                course: course)));
                       },
                       text: 'SUBMIT'),
                 ),
