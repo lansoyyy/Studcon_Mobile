@@ -48,7 +48,7 @@ class _SignupPageState extends State<SignupPage2> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 50,
+                height: 75,
               ),
               Center(
                 child: Container(
@@ -121,7 +121,7 @@ class _SignupPageState extends State<SignupPage2> {
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
               Visibility(
                 visible: _value,
@@ -133,13 +133,9 @@ class _SignupPageState extends State<SignupPage2> {
                       padding: const EdgeInsets.only(left: 30, right: 30),
                       child: ButtonWidget(
                           onPressed: () async {
+                            print(widget.email);
                             if (widget.email.contains('student.buksu.edu.ph')) {
                               try {
-                                await FirebaseAuth.instance
-                                    .createUserWithEmailAndPassword(
-                                        email: widget.email,
-                                        password: widget.password);
-
                                 var user = await FirebaseAuth.instance
                                     .createUserWithEmailAndPassword(
                                         email: widget.email,
@@ -187,7 +183,7 @@ class _SignupPageState extends State<SignupPage2> {
                                                           toastLength:
                                                               Toast.LENGTH_LONG,
                                                           msg:
-                                                              'Verification was to $widget.email');
+                                                              'Verification was sent to ${widget.email}');
 
                                                       Navigator.of(context)
                                                           .pushReplacement(
