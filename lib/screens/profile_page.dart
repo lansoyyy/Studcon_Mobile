@@ -194,7 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               style: const TextStyle(
                                   color: Colors.black, fontFamily: 'QRegular'),
                               onChanged: (_input) {
-                                // email = _input;
+                                name = _input;
                               },
                               decoration: InputDecoration(
                                 labelText: data['name'],
@@ -228,7 +228,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               style: const TextStyle(
                                   color: Colors.black, fontFamily: 'QRegular'),
                               onChanged: (_input) {
-                                // email = _input;
+                                email = _input;
                               },
                               decoration: InputDecoration(
                                 labelText: data['email'],
@@ -265,7 +265,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               style: const TextStyle(
                                   color: Colors.black, fontFamily: 'QRegular'),
                               onChanged: (_input) {
-                                // email = _input;
+                                contactNumber = _input;
                               },
                               decoration: InputDecoration(
                                 labelText: data['contactNumber'],
@@ -302,7 +302,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               style: const TextStyle(
                                   color: Colors.black, fontFamily: 'QRegular'),
                               onChanged: (_input) {
-                                // email = _input;
+                                address = _input;
                               },
                               decoration: InputDecoration(
                                 labelText: data['address'],
