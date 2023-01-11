@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation_system_mobile/screens/message_screen/message_screen.dart';
+import 'package:consultation_system_mobile/services/cloud_function/add_concern.dart';
 import 'package:consultation_system_mobile/services/providers.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
@@ -8,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart' show DateFormat, toBeginningOfSentenceCase;
-
-import '../services/cloud_function/add_concern.dart';
 
 class SearchMessages extends SearchDelegate {
   @override
@@ -154,54 +153,46 @@ class SearchMessages extends SearchDelegate {
                                 builder: (context) {
                                   return Dialog(
                                     child: Container(
-                                      color: Colors.grey[200],
-                                      height: 275,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          TextBold(
-                                              text: 'Type of concern',
-                                              fontSize: 14,
-                                              color: Colors.black),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          StreamBuilder<QuerySnapshot>(
-                                              stream: FirebaseFirestore.instance
-                                                  .collection('Categ')
-                                                  .snapshots(),
-                                              builder: (BuildContext context,
-                                                  AsyncSnapshot<QuerySnapshot>
-                                                      snapshot) {
-                                                if (snapshot.hasError) {
-                                                  print('error');
-                                                  return const Center(
-                                                      child: Text('Error'));
-                                                }
-                                                if (snapshot.connectionState ==
-                                                    ConnectionState.waiting) {
-                                                  print('waiting');
-                                                  return const Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 50),
-                                                    child: Center(
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                      color: Colors.black,
-                                                    )),
-                                                  );
-                                                }
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      height: 300,
+                                      child: SingleChildScrollView(
+                                        child: ExpansionTile(
+                                          children: [
+                                            StreamBuilder<QuerySnapshot>(
+                                                stream: FirebaseFirestore
+                                                    .instance
+                                                    .collection('Categ')
+                                                    .snapshots(),
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot<QuerySnapshot>
+                                                        snapshot) {
+                                                  if (snapshot.hasError) {
+                                                    print('error');
+                                                    return const Center(
+                                                        child: Text('Error'));
+                                                  }
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    print('waiting');
+                                                    return const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 50),
+                                                      child: Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                        color: Colors.black,
+                                                      )),
+                                                    );
+                                                  }
 
-                                                final data12 =
-                                                    snapshot.requireData;
-                                                return Expanded(
-                                                  child: SizedBox(
+                                                  final data12 =
+                                                      snapshot.requireData;
+                                                  return SizedBox(
+                                                    height: 280,
                                                     child: ListView.builder(
                                                         itemCount: snapshot
                                                                 .data?.size ??
@@ -216,18 +207,37 @@ class SearchMessages extends SearchDelegate {
                                                                     right: 20),
                                                             child:
                                                                 MaterialButton(
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              7.5),
+                                                                    ),
                                                                     color: Colors
-                                                                        .white,
+                                                                            .blueAccent[
+                                                                        700],
                                                                     minWidth:
                                                                         200,
-                                                                    child: TextRegular(
-                                                                        text: data12.docs[index1111]
-                                                                            [
-                                                                            'name'],
-                                                                        fontSize:
-                                                                            12,
-                                                                        color: Colors
-                                                                            .black),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        TextRegular(
+                                                                            text: data12.docs[index1111][
+                                                                                'name'],
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Colors.white),
+                                                                        const Icon(
+                                                                          Icons
+                                                                              .double_arrow_outlined,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                     onPressed:
                                                                         () async {
                                                                       var collection = FirebaseFirestore
@@ -276,13 +286,14 @@ class SearchMessages extends SearchDelegate {
                                                                     }),
                                                           );
                                                         }),
-                                                  ),
-                                                );
-                                              }),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                        ],
+                                                  );
+                                                }),
+                                          ],
+                                          title: TextRegular(
+                                              text: 'CONCERN',
+                                              fontSize: 14,
+                                              color: Colors.black),
+                                        ),
                                       ),
                                     ),
                                   );
