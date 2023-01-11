@@ -176,6 +176,8 @@ class HomeScreen extends ConsumerWidget {
                                                 ],
                                               ));
                                     } else {
+                                      box.write('concernId',
+                                          data.docs[index]['concernId']);
                                       box.write('to', data.docs[index]['to']);
                                       box.write(
                                           'from', data.docs[index]['from']);

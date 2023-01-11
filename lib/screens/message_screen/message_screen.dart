@@ -100,7 +100,35 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
             const SizedBox(
               width: 15,
             ),
-            TextRegular(text: name, fontSize: 18, color: Colors.white),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextRegular(text: name, fontSize: 18, color: Colors.white),
+                StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('Concerns')
+                        .doc(box.read('concernId'))
+                        .snapshots(),
+                    builder:
+                        (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(child: Text('Loading'));
+                      } else if (snapshot.hasError) {
+                        return const Center(
+                            child: Text('Something went wrong'));
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      dynamic data = snapshot.data;
+                      return TextBold(
+                          text: data['type'],
+                          fontSize: 10,
+                          color: Colors.white);
+                    })
+              ],
+            ),
           ],
         ),
       ),
