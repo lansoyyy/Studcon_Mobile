@@ -145,7 +145,64 @@ class _MyDrawerState extends State<DrawerWidget> {
                       padding: const EdgeInsets.all(5.0),
                       child: GestureDetector(
                         onTap: () {
-                          uploadPicture('gallery');
+                          showModalBottomSheet(
+                              context: context,
+                              builder: ((context) {
+                                return SizedBox(
+                                  height: 200,
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        onTap: (() {
+                                          Navigator.pop(context);
+                                          showDialog(
+                                              context: context,
+                                              builder: ((context) {
+                                                return Dialog(
+                                                  child: SizedBox(
+                                                    height: 300,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10.0),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            image: DecorationImage(
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                image: NetworkImage(
+                                                                    data[
+                                                                        'profilePicture']))),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }));
+                                        }),
+                                        leading: Icon(Icons.person),
+                                        trailing: Icon(
+                                            Icons.arrow_forward_ios_rounded),
+                                        title: TextRegular(
+                                            text: 'View Profile',
+                                            fontSize: 12,
+                                            color: Colors.black),
+                                      ),
+                                      ListTile(
+                                        onTap: (() {
+                                          uploadPicture('gallery');
+                                        }),
+                                        leading: Icon(Icons.upload),
+                                        trailing: Icon(
+                                            Icons.arrow_forward_ios_rounded),
+                                        title: TextRegular(
+                                            text: 'Upload Photo',
+                                            fontSize: 12,
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }));
                         },
                         child: CircleAvatar(
                           minRadius: 50,
