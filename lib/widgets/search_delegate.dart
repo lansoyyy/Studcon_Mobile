@@ -3,10 +3,12 @@ import 'package:consultation_system_mobile/screens/message_screen/message_screen
 import 'package:consultation_system_mobile/services/cloud_function/add_concern.dart';
 import 'package:consultation_system_mobile/services/providers.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
+import 'package:consultation_system_mobile/widgets/button_widget.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart' show DateFormat, toBeginningOfSentenceCase;
 
@@ -60,6 +62,9 @@ class SearchMessages extends SearchDelegate {
     final box = GetStorage();
 
     String tdata = DateFormat("hh").format(DateTime.now());
+
+    late String section = '';
+    late String classCode = '';
 
     print(tdata);
 
@@ -240,49 +245,101 @@ class SearchMessages extends SearchDelegate {
                                                                     ),
                                                                     onPressed:
                                                                         () async {
-                                                                      var collection = FirebaseFirestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'Users')
-                                                                          .where(
-                                                                              'id',
-                                                                              isEqualTo: FirebaseAuth.instance.currentUser!.uid);
-                                                                      var querySnapshot =
-                                                                          await collection
-                                                                              .get();
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                      showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (context) {
+                                                                            return Dialog(
+                                                                              child: SizedBox(
+                                                                                height: 300,
+                                                                                child: Column(
+                                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Padding(
+                                                                                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                                                                      child: SizedBox(
+                                                                                        height: 50,
+                                                                                        child: TextFormField(
+                                                                                          style: const TextStyle(color: Colors.black, fontFamily: 'QRegular'),
+                                                                                          onChanged: (_input) {
+                                                                                            section = _input;
+                                                                                          },
+                                                                                          decoration: InputDecoration(
+                                                                                            labelText: 'Section',
+                                                                                            fillColor: Colors.white,
+                                                                                            filled: true,
+                                                                                            enabledBorder: OutlineInputBorder(
+                                                                                              borderSide: const BorderSide(width: 1, color: Colors.grey),
+                                                                                              borderRadius: BorderRadius.circular(5),
+                                                                                            ),
+                                                                                            focusedBorder: OutlineInputBorder(
+                                                                                              borderSide: const BorderSide(width: 1, color: primary),
+                                                                                              borderRadius: BorderRadius.circular(5),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Padding(
+                                                                                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                                                                      child: SizedBox(
+                                                                                        height: 50,
+                                                                                        child: TextFormField(
+                                                                                          style: const TextStyle(color: Colors.black, fontFamily: 'QRegular'),
+                                                                                          onChanged: (_input) {
+                                                                                            classCode = _input;
+                                                                                          },
+                                                                                          decoration: InputDecoration(
+                                                                                            labelText: 'Class Code',
+                                                                                            fillColor: Colors.white,
+                                                                                            filled: true,
+                                                                                            enabledBorder: OutlineInputBorder(
+                                                                                              borderSide: const BorderSide(width: 1, color: Colors.grey),
+                                                                                              borderRadius: BorderRadius.circular(5),
+                                                                                            ),
+                                                                                            focusedBorder: OutlineInputBorder(
+                                                                                              borderSide: const BorderSide(width: 1, color: primary),
+                                                                                              borderRadius: BorderRadius.circular(5),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    const SizedBox(
+                                                                                      height: 20,
+                                                                                    ),
+                                                                                    Padding(
+                                                                                      padding: const EdgeInsets.only(left: 20, right: 20),
+                                                                                      child: ButtonWidget(
+                                                                                        text: 'Continue',
+                                                                                        onPressed: () async {
+                                                                                          if (section == '' || classCode == '') {
+                                                                                            Fluttertoast.showToast(msg: 'Please input your section and class code!');
+                                                                                          } else {
+                                                                                            var collection = FirebaseFirestore.instance.collection('Users').where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid);
+                                                                                            var querySnapshot = await collection.get();
 
-                                                                      for (var queryDocumentSnapshot
-                                                                          in querySnapshot
-                                                                              .docs) {
-                                                                        Map<String,
-                                                                                dynamic>
-                                                                            data =
-                                                                            queryDocumentSnapshot.data();
+                                                                                            for (var queryDocumentSnapshot in querySnapshot.docs) {
+                                                                                              Map<String, dynamic> data = queryDocumentSnapshot.data();
 
-                                                                        addConcern(
-                                                                            data['name'],
-                                                                            data['course'],
-                                                                            data['yearLevel'],
-                                                                            data['email'],
-                                                                            data['profilePicture'],
-                                                                            data12.docs[index1111]['name']);
-                                                                      }
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pop();
-                                                                      box.write(
-                                                                          'concern',
-                                                                          data12.docs[index1111]
-                                                                              [
-                                                                              'name']);
-                                                                      ref.read(instructorIdProvider.notifier).state = data
-                                                                          .docs[
-                                                                              index99]
-                                                                          .id;
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pushReplacement(
-                                                                              MaterialPageRoute(builder: (context) => MessageScreen()));
+                                                                                              addConcern(data['name'], data['course'], data['yearLevel'], data['email'], data['profilePicture'], data12.docs[index1111]['name'], classCode, section);
+                                                                                            }
+                                                                                            Navigator.of(context).pop();
+                                                                                            box.write('concern', data12.docs[index1111]['name']);
+                                                                                            ref.read(instructorIdProvider.notifier).state = data.docs[index99].id;
+                                                                                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MessageScreen()));
+                                                                                          }
+                                                                                        },
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          });
                                                                     }),
                                                           );
                                                         }),

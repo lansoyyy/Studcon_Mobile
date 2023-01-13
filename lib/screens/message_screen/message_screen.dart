@@ -107,7 +107,7 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                 StreamBuilder<DocumentSnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('Concerns')
-                        .doc(box.read('concernId'))
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
                         .snapshots(),
                     builder:
                         (context, AsyncSnapshot<DocumentSnapshot> snapshot) {

@@ -1,4 +1,3 @@
-import 'package:consultation_system_mobile/auth/login_page.dart.dart';
 import 'package:consultation_system_mobile/firebase_options.dart';
 
 import 'package:consultation_system_mobile/screens/home_screen.dart';
