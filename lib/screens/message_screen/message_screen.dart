@@ -123,7 +123,7 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
 
                       dynamic data = snapshot.data;
                       return TextBold(
-                          text: data['type'],
+                          text: data['type'] ?? '',
                           fontSize: 10,
                           color: Colors.white);
                     })

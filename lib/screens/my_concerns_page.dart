@@ -64,7 +64,7 @@ class MyConcernPage extends StatelessWidget {
                                                   fontFamily: 'QRegular'),
                                             ),
                                             actions: <Widget>[
-                                              FlatButton(
+                                              MaterialButton(
                                                 onPressed: () =>
                                                     Navigator.of(context)
                                                         .pop(true),
@@ -76,7 +76,7 @@ class MyConcernPage extends StatelessWidget {
                                                           FontWeight.bold),
                                                 ),
                                               ),
-                                              FlatButton(
+                                              MaterialButton(
                                                 onPressed: () async {
                                                   Navigator.of(context)
                                                       .pop(true);

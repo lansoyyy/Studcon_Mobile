@@ -132,7 +132,7 @@ class HomeScreen extends ConsumerWidget {
                                                     fontFamily: 'QRegular'),
                                               ),
                                               actions: <Widget>[
-                                                FlatButton(
+                                                MaterialButton(
                                                   onPressed: () =>
                                                       Navigator.of(context)
                                                           .pop(true),
@@ -160,7 +160,7 @@ class HomeScreen extends ConsumerWidget {
                                                       fontFamily: 'QRegular'),
                                                 ),
                                                 actions: <Widget>[
-                                                  FlatButton(
+                                                  MaterialButton(
                                                     onPressed: () =>
                                                         Navigator.of(context)
                                                             .pop(true),

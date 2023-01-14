@@ -116,7 +116,7 @@ class SearchMessages extends SearchDelegate {
                                       style: TextStyle(fontFamily: 'QRegular'),
                                     ),
                                     actions: <Widget>[
-                                      FlatButton(
+                                      MaterialButton(
                                         onPressed: () =>
                                             Navigator.of(context).pop(true),
                                         child: const Text(
@@ -140,7 +140,7 @@ class SearchMessages extends SearchDelegate {
                                             TextStyle(fontFamily: 'QRegular'),
                                       ),
                                       actions: <Widget>[
-                                        FlatButton(
+                                        MaterialButton(
                                           onPressed: () =>
                                               Navigator.of(context).pop(true),
                                           child: const Text(
