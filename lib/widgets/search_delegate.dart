@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation_system_mobile/screens/message_screen/message_screen.dart';
+import 'package:consultation_system_mobile/services/cloud_function/add_code.dart';
 import 'package:consultation_system_mobile/services/cloud_function/add_concern.dart';
+import 'package:consultation_system_mobile/services/cloud_function/add_section.dart';
 import 'package:consultation_system_mobile/services/providers.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/button_widget.dart';
@@ -326,6 +328,8 @@ class SearchMessages extends SearchDelegate {
                                                                                               Map<String, dynamic> data = queryDocumentSnapshot.data();
 
                                                                                               addConcern(data['name'], data['course'], data['yearLevel'], data['email'], data['profilePicture'], data12.docs[index1111]['name'], classCode, section);
+                                                                                              addSection(section);
+                                                                                              addCode(classCode);
                                                                                             }
                                                                                             Navigator.of(context).pop();
                                                                                             box.write('concern', data12.docs[index1111]['name']);
