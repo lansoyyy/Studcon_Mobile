@@ -175,7 +175,7 @@ class SearchMessages extends SearchDelegate {
                                                     .snapshots(),
                                                 builder: (BuildContext context,
                                                     AsyncSnapshot<QuerySnapshot>
-                                                        snapshot) {
+                                                        snapshot1) {
                                                   if (snapshot.hasError) {
                                                     print('error');
                                                     return const Center(
@@ -196,157 +196,194 @@ class SearchMessages extends SearchDelegate {
                                                     );
                                                   }
 
-                                                  final data12 =
-                                                      snapshot.requireData;
+                                                  final data122 =
+                                                      snapshot1.requireData;
                                                   return SizedBox(
-                                                    height: 280,
+                                                    height: 300,
                                                     child: ListView.builder(
-                                                        itemCount: snapshot
+                                                        itemCount: snapshot1
                                                                 .data?.size ??
                                                             0,
-                                                        itemBuilder: (context,
-                                                            index1111) {
-                                                          return Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 20,
-                                                                    right: 20),
-                                                            child:
-                                                                MaterialButton(
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              7.5),
-                                                                    ),
-                                                                    color: Colors
-                                                                            .blueAccent[
-                                                                        700],
-                                                                    minWidth:
-                                                                        200,
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        TextRegular(
-                                                                            text: data12.docs[index1111][
-                                                                                'name'],
-                                                                            fontSize:
-                                                                                12,
-                                                                            color:
-                                                                                Colors.white),
-                                                                        const Icon(
-                                                                          Icons
-                                                                              .double_arrow_outlined,
+                                                        itemBuilder: ((context,
+                                                            index11) {
+                                                          return ExpansionTile(
+                                                            title: TextBold(
+                                                                text: data122
+                                                                            .docs[
+                                                                        index11]
+                                                                    ['name'],
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                        .blueAccent[
+                                                                    700]!),
+                                                            children: [
+                                                              StreamBuilder<
+                                                                      QuerySnapshot>(
+                                                                  stream: FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'Categ')
+                                                                      .snapshots(),
+                                                                  builder: (BuildContext
+                                                                          context,
+                                                                      AsyncSnapshot<
+                                                                              QuerySnapshot>
+                                                                          snapshot) {
+                                                                    if (snapshot
+                                                                        .hasError) {
+                                                                      print(
+                                                                          'error');
+                                                                      return const Center(
+                                                                          child:
+                                                                              Text('Error'));
+                                                                    }
+                                                                    if (snapshot
+                                                                            .connectionState ==
+                                                                        ConnectionState
+                                                                            .waiting) {
+                                                                      print(
+                                                                          'waiting');
+                                                                      return const Padding(
+                                                                        padding:
+                                                                            EdgeInsets.only(top: 50),
+                                                                        child: Center(
+                                                                            child: CircularProgressIndicator(
                                                                           color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                      showDialog(
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (context) {
-                                                                            return Dialog(
-                                                                              child: SizedBox(
-                                                                                height: 300,
-                                                                                child: Column(
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Padding(
-                                                                                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                                                                      child: SizedBox(
-                                                                                        height: 50,
-                                                                                        child: TextFormField(
-                                                                                          style: const TextStyle(color: Colors.black, fontFamily: 'QRegular'),
-                                                                                          onChanged: (_input) {
-                                                                                            section = _input;
-                                                                                          },
-                                                                                          decoration: InputDecoration(
-                                                                                            labelText: 'Section',
-                                                                                            fillColor: Colors.white,
-                                                                                            filled: true,
-                                                                                            enabledBorder: OutlineInputBorder(
-                                                                                              borderSide: const BorderSide(width: 1, color: Colors.grey),
-                                                                                              borderRadius: BorderRadius.circular(5),
-                                                                                            ),
-                                                                                            focusedBorder: OutlineInputBorder(
-                                                                                              borderSide: const BorderSide(width: 1, color: primary),
-                                                                                              borderRadius: BorderRadius.circular(5),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                                                                      child: SizedBox(
-                                                                                        height: 50,
-                                                                                        child: TextFormField(
-                                                                                          style: const TextStyle(color: Colors.black, fontFamily: 'QRegular'),
-                                                                                          onChanged: (_input) {
-                                                                                            classCode = _input;
-                                                                                          },
-                                                                                          decoration: InputDecoration(
-                                                                                            labelText: 'Class Code',
-                                                                                            fillColor: Colors.white,
-                                                                                            filled: true,
-                                                                                            enabledBorder: OutlineInputBorder(
-                                                                                              borderSide: const BorderSide(width: 1, color: Colors.grey),
-                                                                                              borderRadius: BorderRadius.circular(5),
-                                                                                            ),
-                                                                                            focusedBorder: OutlineInputBorder(
-                                                                                              borderSide: const BorderSide(width: 1, color: primary),
-                                                                                              borderRadius: BorderRadius.circular(5),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    const SizedBox(
-                                                                                      height: 20,
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: const EdgeInsets.only(left: 20, right: 20),
-                                                                                      child: ButtonWidget(
-                                                                                        text: 'Continue',
-                                                                                        onPressed: () async {
-                                                                                          if (section == '' || classCode == '') {
-                                                                                            Fluttertoast.showToast(msg: 'Please input your section and class code!');
-                                                                                          } else {
-                                                                                            var collection = FirebaseFirestore.instance.collection('Users').where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid);
-                                                                                            var querySnapshot = await collection.get();
+                                                                              Colors.black,
+                                                                        )),
+                                                                      );
+                                                                    }
 
-                                                                                            for (var queryDocumentSnapshot in querySnapshot.docs) {
-                                                                                              Map<String, dynamic> data = queryDocumentSnapshot.data();
-
-                                                                                              addConcern(data['name'], data['course'], data['yearLevel'], data['email'], data['profilePicture'], data12.docs[index1111]['name'], classCode, section);
-                                                                                              addSection(section);
-                                                                                              addCode(classCode);
-                                                                                            }
-                                                                                            Navigator.of(context).pop();
-                                                                                            box.write('concern', data12.docs[index1111]['name']);
-                                                                                            ref.read(instructorIdProvider.notifier).state = data.docs[index99].id;
-                                                                                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MessageScreen()));
-                                                                                          }
-                                                                                        },
+                                                                    final data12 =
+                                                                        snapshot
+                                                                            .requireData;
+                                                                    return SizedBox(
+                                                                      height:
+                                                                          280,
+                                                                      child: ListView.builder(
+                                                                          itemCount: snapshot.data?.size ?? 0,
+                                                                          itemBuilder: (context, index1111) {
+                                                                            return Padding(
+                                                                              padding: const EdgeInsets.only(left: 20, right: 20),
+                                                                              child: MaterialButton(
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(7.5),
+                                                                                  ),
+                                                                                  color: Colors.blueAccent[700],
+                                                                                  minWidth: 200,
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      TextRegular(text: data12.docs[index1111]['name'], fontSize: 12, color: Colors.white),
+                                                                                      const Icon(
+                                                                                        Icons.double_arrow_outlined,
+                                                                                        color: Colors.white,
                                                                                       ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
+                                                                                    ],
+                                                                                  ),
+                                                                                  onPressed: () async {
+                                                                                    Navigator.pop(context);
+                                                                                    showDialog(
+                                                                                        context: context,
+                                                                                        builder: (context) {
+                                                                                          return Dialog(
+                                                                                            child: SizedBox(
+                                                                                              height: 300,
+                                                                                              child: Column(
+                                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                children: [
+                                                                                                  Padding(
+                                                                                                    padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                                                                                    child: SizedBox(
+                                                                                                      height: 50,
+                                                                                                      child: TextFormField(
+                                                                                                        style: const TextStyle(color: Colors.black, fontFamily: 'QRegular'),
+                                                                                                        onChanged: (_input) {
+                                                                                                          section = _input;
+                                                                                                        },
+                                                                                                        decoration: InputDecoration(
+                                                                                                          labelText: 'Section',
+                                                                                                          fillColor: Colors.white,
+                                                                                                          filled: true,
+                                                                                                          enabledBorder: OutlineInputBorder(
+                                                                                                            borderSide: const BorderSide(width: 1, color: Colors.grey),
+                                                                                                            borderRadius: BorderRadius.circular(5),
+                                                                                                          ),
+                                                                                                          focusedBorder: OutlineInputBorder(
+                                                                                                            borderSide: const BorderSide(width: 1, color: primary),
+                                                                                                            borderRadius: BorderRadius.circular(5),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Padding(
+                                                                                                    padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                                                                                    child: SizedBox(
+                                                                                                      height: 50,
+                                                                                                      child: TextFormField(
+                                                                                                        style: const TextStyle(color: Colors.black, fontFamily: 'QRegular'),
+                                                                                                        onChanged: (_input) {
+                                                                                                          classCode = _input;
+                                                                                                        },
+                                                                                                        decoration: InputDecoration(
+                                                                                                          labelText: 'Class Code',
+                                                                                                          fillColor: Colors.white,
+                                                                                                          filled: true,
+                                                                                                          enabledBorder: OutlineInputBorder(
+                                                                                                            borderSide: const BorderSide(width: 1, color: Colors.grey),
+                                                                                                            borderRadius: BorderRadius.circular(5),
+                                                                                                          ),
+                                                                                                          focusedBorder: OutlineInputBorder(
+                                                                                                            borderSide: const BorderSide(width: 1, color: primary),
+                                                                                                            borderRadius: BorderRadius.circular(5),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  const SizedBox(
+                                                                                                    height: 20,
+                                                                                                  ),
+                                                                                                  Padding(
+                                                                                                    padding: const EdgeInsets.only(left: 20, right: 20),
+                                                                                                    child: ButtonWidget(
+                                                                                                      text: 'Continue',
+                                                                                                      onPressed: () async {
+                                                                                                        if (section == '' || classCode == '') {
+                                                                                                          Fluttertoast.showToast(msg: 'Please input your section and class code!');
+                                                                                                        } else {
+                                                                                                          var collection = FirebaseFirestore.instance.collection('Users').where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid);
+                                                                                                          var querySnapshot = await collection.get();
+
+                                                                                                          for (var queryDocumentSnapshot in querySnapshot.docs) {
+                                                                                                            Map<String, dynamic> data = queryDocumentSnapshot.data();
+
+                                                                                                            addConcern(data['name'], data['course'], data['yearLevel'], data['email'], data['profilePicture'], data12.docs[index1111]['name'], classCode, section);
+                                                                                                            addSection(section);
+                                                                                                            addCode(classCode);
+                                                                                                          }
+                                                                                                          Navigator.of(context).pop();
+                                                                                                          box.write('concern', data12.docs[index1111]['name']);
+                                                                                                          ref.read(instructorIdProvider.notifier).state = data.docs[index99].id;
+                                                                                                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MessageScreen()));
+                                                                                                        }
+                                                                                                      },
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                          );
+                                                                                        });
+                                                                                  }),
                                                                             );
-                                                                          });
-                                                                    }),
+                                                                          }),
+                                                                    );
+                                                                  }),
+                                                            ],
                                                           );
-                                                        }),
+                                                        })),
                                                   );
                                                 }),
                                           ],
