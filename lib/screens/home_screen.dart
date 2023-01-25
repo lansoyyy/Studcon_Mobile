@@ -41,7 +41,9 @@ class HomeScreen extends ConsumerWidget {
                   child: ListTile(
                     trailing: const Icon(Icons.search, color: Colors.black),
                     title: TextRegular(
-                        text: 'Search bar', fontSize: 12, color: Colors.grey),
+                        text: 'Search instructors',
+                        fontSize: 12,
+                        color: Colors.grey),
                   ),
                   height: 50,
                   width: double.infinity,
