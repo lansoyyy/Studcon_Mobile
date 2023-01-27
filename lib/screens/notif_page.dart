@@ -36,7 +36,7 @@ class NotifPage extends ConsumerWidget {
 
             List notifs = data['notif'];
             return ListView.builder(
-                itemCount: notifs.length,
+                itemCount: notifs.reversed.length,
                 itemBuilder: ((context, index) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
