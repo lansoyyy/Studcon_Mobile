@@ -6,7 +6,7 @@ import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 
 class MessageScreen extends ConsumerStatefulWidget {
   @override
@@ -77,8 +77,6 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
       });
     }
   }
-
-  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -362,11 +360,20 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                           text: 'Send', fontSize: 14, color: Colors.white),
                       color: Colors.blueAccent[700],
                       onPressed: () async {
+                        String tdata =
+                            DateFormat("hh:mm a").format(DateTime.now());
                         await FirebaseFirestore.instance
                             .collection('CONSULTATION-USERS')
                             .doc(ref.watch(instructorIdProvider.notifier).state)
                             .update({
-                          'notif': FieldValue.arrayUnion([myName]),
+                          'notif': FieldValue.arrayUnion([
+                            {
+                              'name': myName,
+                              'time': tdata,
+                              'message': messageController.text,
+                              'id': FirebaseAuth.instance.currentUser!.uid
+                            }
+                          ]),
                         });
 
                         addMessage(

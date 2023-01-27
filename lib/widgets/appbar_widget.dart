@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:consultation_system_mobile/screens/notif_page.dart';
 import 'package:consultation_system_mobile/utils/colors.dart';
 import 'package:consultation_system_mobile/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,7 +40,10 @@ PreferredSizeWidget AppbarWidget(
                     fontSize: 12,
                     color: Colors.white),
                 child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const NotifPage()));
+                    },
                     icon: const Icon(
                       Icons.notifications,
                       color: Colors.white,
