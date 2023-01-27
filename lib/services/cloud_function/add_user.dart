@@ -23,6 +23,7 @@ Future addUser(
     'id': docUser.id,
     'profilePicture': 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
     'status': 'Active',
+    'notif': [],
   };
 
   await docUser.set(json);

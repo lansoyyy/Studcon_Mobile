@@ -48,6 +48,7 @@ dependencies:
   intl:
   fluttertoast:
   flutter_rating_bar: ^4.0.0 
+  badges:
 
 dev_dependencies:
   flutter_test:

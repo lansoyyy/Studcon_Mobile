@@ -361,7 +361,14 @@ class _HomeScreenState extends ConsumerState<MessageScreen> {
                       child: TextRegular(
                           text: 'Send', fontSize: 14, color: Colors.white),
                       color: Colors.blueAccent[700],
-                      onPressed: () {
+                      onPressed: () async {
+                        await FirebaseFirestore.instance
+                            .collection('CONSULTATION-USERS')
+                            .doc(ref.watch(instructorIdProvider.notifier).state)
+                            .update({
+                          'notif': FieldValue.arrayUnion([myName]),
+                        });
+
                         addMessage(
                             myYear,
                             instructorProfile,
