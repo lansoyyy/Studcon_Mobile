@@ -18,6 +18,8 @@ class SignupPage2 extends StatefulWidget {
   late String email;
 
   late String password;
+  late String classCode;
+  late String section;
 
   String productCategory;
   String course;
@@ -29,6 +31,8 @@ class SignupPage2 extends StatefulWidget {
       required this.email,
       required this.password,
       required this.productCategory,
+      required this.section,
+      required this.classCode,
       required this.course});
 
   @override
@@ -149,7 +153,9 @@ class _SignupPageState extends State<SignupPage2> {
                                     widget.address,
                                     widget.course,
                                     widget.productCategory,
-                                    widget.email);
+                                    widget.email,
+                                    widget.classCode,
+                                    widget.section);
                                 showDialog(
                                     barrierDismissible: false,
                                     context: context,

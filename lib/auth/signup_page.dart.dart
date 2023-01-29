@@ -30,6 +30,9 @@ class _SignupPageState extends State<SignupPage> {
 
   var course = 'IT';
 
+  late String classCode = '';
+  late String section = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -411,6 +414,62 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
+              child: TextFormField(
+                style: const TextStyle(
+                    color: Colors.black, fontFamily: 'QRegular'),
+                onChanged: (_input) {
+                  section = _input;
+                },
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: primary),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  labelText: 'Section',
+                  labelStyle: const TextStyle(
+                    fontFamily: 'QRegular',
+                    color: Colors.black,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              child: TextFormField(
+                style: const TextStyle(
+                    color: Colors.black, fontFamily: 'QRegular'),
+                onChanged: (_input) {
+                  classCode = _input;
+                },
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: primary),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  labelText: 'Class Code',
+                  labelStyle: const TextStyle(
+                    fontFamily: 'QRegular',
+                    color: Colors.black,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 50,
             ),
@@ -424,13 +483,16 @@ class _SignupPageState extends State<SignupPage> {
                       onPressed: () async {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SignupPage2(
-                                name: name,
-                                contactNumber: contactNumber,
-                                address: address,
-                                email: email,
-                                password: password,
-                                productCategory: productCategory,
-                                course: course)));
+                                  classCode: classCode,
+                                  section: section,
+                                  name: name,
+                                  contactNumber: contactNumber,
+                                  address: address,
+                                  email: email,
+                                  password: password,
+                                  productCategory: productCategory,
+                                  course: course,
+                                )));
                       },
                       text: 'SUBMIT'),
                 ),
