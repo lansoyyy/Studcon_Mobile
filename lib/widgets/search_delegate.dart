@@ -200,7 +200,7 @@ class SearchMessages extends SearchDelegate {
 
                                                   return SingleChildScrollView(
                                                     child: SizedBox(
-                                                      height: 300,
+                                                      height: 250,
                                                       child: ListView.builder(
                                                           itemCount: snapshot1
                                                                   .data?.size ??
