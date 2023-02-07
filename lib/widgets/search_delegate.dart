@@ -166,7 +166,6 @@ class SearchMessages extends SearchDelegate {
                                       child: SingleChildScrollView(
                                         child: ExpansionTile(
                                           children: [
-                                            const SizedBox(height: 75),
                                             StreamBuilder<QuerySnapshot>(
                                                 stream: FirebaseFirestore
                                                     .instance
